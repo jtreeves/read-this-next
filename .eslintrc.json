@@ -1,3 +1,17 @@
 {
-  "extends": "next/core-web-vitals"
+    "extends": [
+        "next",
+        "next/core-web-vitals",
+        "eslint:recommended",
+        "prettier"
+    ],
+    "plugins": [
+        "@typescript-eslint/eslint-plugin",
+        "prettier",
+        "check-file",
+        "import",
+        "require-explicit-generics",
+        "react",
+        "react-refresh"
+    ]
 }
