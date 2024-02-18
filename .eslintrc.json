@@ -5,13 +5,5 @@
         "eslint:recommended",
         "prettier"
     ],
-    "plugins": [
-        "@typescript-eslint/eslint-plugin",
-        "prettier",
-        "check-file",
-        "import",
-        "require-explicit-generics",
-        "react",
-        "react-refresh"
-    ]
+    "plugins": ["prettier", "check-file", "import", "react"]
 }
