@@ -1,14 +1,8 @@
 import { defineConfig, devices } from '@playwright/test'
+import dotenv from 'dotenv'
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+dotenv.config()
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
     testDir: './tests',
     fullyParallel: true,
@@ -17,9 +11,7 @@ export default defineConfig({
     workers: process.env.CI ? 1 : undefined,
     reporter: 'html',
     use: {
-        /* Base URL to use in actions like `await page.goto('/')`. */
-        // baseURL: 'http://127.0.0.1:3000',
-
+        baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL,
         trace: 'on-first-retry'
     },
     projects: [
@@ -35,12 +27,10 @@ export default defineConfig({
             name: 'webkit',
             use: { ...devices['Desktop Safari'] }
         }
-    ]
-
-    /* Run your local dev server before starting the tests */
-    // webServer: {
-    //   command: 'npm run start',
-    //   url: 'http://127.0.0.1:3000',
-    //   reuseExistingServer: !process.env.CI,
-    // },
+    ],
+    webServer: {
+        command: 'npm run dev',
+        url: process.env.PLAYWRIGHT_TEST_BASE_URL,
+        reuseExistingServer: !process.env.CI
+    }
 })
