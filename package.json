@@ -5,10 +5,13 @@
     "scripts": {
         "build": "next build",
         "check": "npm run test && npm run build && npm run lint && npm run format && echo '\nAll checks passed!'",
+        "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf test-results",
         "dev": "next dev",
         "format": "prettier . --write",
         "lint": "next lint --fix",
         "prepare": "husky",
+        "relock": "rm -rf node_modules && rm package-lock.json && npm i",
+        "reset": "npm run clear && npm run relock",
         "start": "next start",
         "test": "npm run test:unit && npm run test:e2e",
         "test:e2e": "npx playwright test",

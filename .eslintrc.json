@@ -11,5 +11,8 @@
         "es2024": true,
         "node": true,
         "jest": true
+    },
+    "rules": {
+        "import/no-anonymous-default-export": "off"
     }
 }
