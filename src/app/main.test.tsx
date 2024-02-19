@@ -5,7 +5,7 @@ describe('HomePage', () => {
     it('should render a heading', () => {
         render(<HomePage />)
 
-        const heading = screen.getByRole('heading', { level: 1 })
+        const heading: HTMLElement = screen.getByRole('heading', { level: 1 })
 
         expect(heading).toBeInTheDocument()
     })

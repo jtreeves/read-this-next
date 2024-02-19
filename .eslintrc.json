@@ -1,13 +1,18 @@
 {
     "extends": ["eslint:recommended", "prettier", "next"],
     "plugins": [
-        // "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/eslint-plugin",
         "prettier",
         "check-file",
         "import",
         "react"
     ],
-    "ignorePatterns": ["dist", "*.cjs"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "tsconfig.json",
+        "sourceType": "module"
+    },
+    "ignorePatterns": ["tests", ".next", ".swc", "*.cjs"],
     "env": {
         "browser": true,
         "es2024": true,
@@ -15,6 +20,7 @@
         "jest": true
     },
     "rules": {
+        // Core
         "no-var": "error",
         "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
         "prefer-const": "warn",
@@ -30,43 +36,43 @@
             { "blankLine": "always", "prev": "*", "next": "return" },
             { "blankLine": "always", "prev": "*", "next": "export" }
         ],
-        // "typescript-eslint/explicit-function-return-type": "error",
-        // "@typescript-eslint/explicit-function-return-type": "error",
-        // "@typescript-eslint/return-await": ["error", "always"],
-        // "@typescript-eslint/typedef": [
-        //     "warn",
-        //     {
-        //         "arrowParameter": true,
-        //         "parameter": true,
-        //         "variableDeclaration": true
-        //     }
-        // ],
-        // "@typescript-eslint/naming-convention": [
-        //     "warn",
-        //     {
-        //         "selector": "variableLike",
-        //         "format": ["camelCase"]
-        //     },
-        //     {
-        //         "selector": "parameter",
-        //         "format": ["camelCase"],
-        //         "leadingUnderscore": "allow"
-        //     },
-        //     {
-        //         "selector": "function",
-        //         "format": ["camelCase", "PascalCase"],
-        //         "modifiers": ["exported"]
-        //     },
-        //     { "selector": "class", "format": ["PascalCase"] }
-        // ],
-        // "@typescript-eslint/no-unused-vars": [
-        //     "warn",
-        //     { "argsIgnorePattern": "^_" }
-        // ],
-        // "@typescript-eslint/no-explicit-any": "off",
-        // "@typescript-eslint/no-inferrable-types": "off",
-        // "@typescript-eslint/no-non-null-assertion": "off",
+
+        // TypeScript
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/return-await": ["error", "always"],
+        "@typescript-eslint/typedef": [
+            "warn",
+            {
+                "arrowParameter": true,
+                "parameter": true,
+                "variableDeclaration": true
+            }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "warn",
+            {
+                "selector": "variableLike",
+                "format": ["camelCase"]
+            },
+            {
+                "selector": "parameter",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "function",
+                "format": ["camelCase", "PascalCase"],
+                "modifiers": ["exported"]
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+
+        // Prettier
         "prettier/prettier": "warn",
+
+        // Check File
         "check-file/filename-blocklist": [
             "error",
             {
@@ -117,11 +123,5 @@
         ],
         "react/jsx-newline": ["warn", { "prevent": false }],
         "react/jsx-no-useless-fragment": "warn"
-
-        // React Refresh
-        // "react-refresh/only-export-components": [
-        //     "warn",
-        //     { "allowConstantExport": true }
-        // ]
     }
 }
