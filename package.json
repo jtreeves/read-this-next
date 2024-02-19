@@ -9,7 +9,7 @@
         "dev": "next dev",
         "format": "prettier . --write",
         "lint": "next lint --fix",
-        "lint-staged": "lint-staged --config .lintstagedrc.cjs",
+        "lint-staged": "lint-staged",
         "prepare": "husky",
         "relock": "rm -rf node_modules && rm package-lock.json && npm i",
         "reset": "npm run clear && npm run relock",
