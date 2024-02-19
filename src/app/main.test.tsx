@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import Page from './page'
+import HomePage from './page'
 
-describe('Page', () => {
-    it('renders a heading', () => {
-        render(<Page />)
+describe('HomePage', () => {
+    it('should render a heading', () => {
+        render(<HomePage />)
 
         const heading = screen.getByRole('heading', { level: 1 })
 

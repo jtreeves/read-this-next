@@ -5,11 +5,13 @@
     "scripts": {
         "build": "next build",
         "check": "npm run test && npm run build && npm run lint && npm run format && echo '\nAll checks passed!'",
+        "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf test-results",
         "dev": "next dev",
         "format": "prettier . --write",
         "lint": "next lint --fix",
         "prepare": "husky",
-        "start": "next start",
+        "relock": "rm -rf node_modules && rm package-lock.json && npm i",
+        "reset": "npm run clear && npm run relock",
         "test": "npm run test:unit && npm run test:e2e",
         "test:e2e": "npx playwright test",
         "test:unit": "jest --coverage"
@@ -28,6 +30,7 @@
         "@types/react": "^18",
         "@types/react-dom": "^18",
         "autoprefixer": "^10.0.1",
+        "dotenv": "^16.4.4",
         "eslint": "^8",
         "eslint-config-next": "14.1.0",
         "eslint-config-prettier": "^9.1.0",
