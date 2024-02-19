@@ -20,7 +20,7 @@ jobs:
       - name: Run end-to-end tests
         run: npm run test:e2e
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          PLAYWRIGHT_TEST_BASE_URL: https://read-this-next.vercel.app
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         if: always()
