@@ -1,12 +1,12 @@
-### Changes
+## Changes
 
 - Describe changes in PR
 
-### Tickets
+## Tickets
 
 - Link to Trello tickets related to PR
 
-### Checklist
+## Checklist
 
 - [ ] Code linted
 - [ ] Tests pass
