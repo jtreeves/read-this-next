@@ -10,6 +10,7 @@
         "format": "prettier . --write",
         "lint": "next lint --fix",
         "lint-staged": "lint-staged",
+        "lint-strict": "next lint --max-warnings=0",
         "prepare": "husky",
         "relock": "rm -rf node_modules && rm package-lock.json && npm i",
         "reset": "npm run clear && npm run relock",
