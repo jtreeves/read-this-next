@@ -9,7 +9,7 @@
 ## Checklist
 
 - [ ] Code linted
-- [ ] Tests pass
+- [ ] Tests pass (and new ones added if applicable)
 - [ ] Builds successfully
 - [ ] App functions properly
 - [ ] Screenshots provided (if applicable)
