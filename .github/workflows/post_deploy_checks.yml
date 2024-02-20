@@ -1,4 +1,4 @@
-name: Run Playwright Tests
+name: Post-Deploy Checks
 on:
   deployment_status:
 jobs:

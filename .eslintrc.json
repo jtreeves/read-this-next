@@ -1,11 +1,18 @@
 {
-    "extends": [
-        "next",
-        "next/core-web-vitals",
-        "eslint:recommended",
-        "prettier"
+    "extends": ["eslint:recommended", "prettier", "next"],
+    "plugins": [
+        "@typescript-eslint/eslint-plugin",
+        "prettier",
+        "check-file",
+        "import",
+        "react"
     ],
-    "plugins": ["prettier", "check-file", "import", "react"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "tsconfig.json",
+        "sourceType": "module"
+    },
+    "ignorePatterns": ["tests", ".next", ".swc", "*.cjs"],
     "env": {
         "browser": true,
         "es2024": true,
@@ -13,6 +20,108 @@
         "jest": true
     },
     "rules": {
-        "import/no-anonymous-default-export": "off"
+        // Core
+        "no-var": "error",
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "prefer-const": "warn",
+        "array-callback-return": "warn",
+        "require-await": "warn",
+        "implicit-arrow-linebreak": "warn",
+        "padding-line-between-statements": [
+            "warn",
+            { "blankLine": "always", "prev": "block-like", "next": "*" },
+            { "blankLine": "always", "prev": "block", "next": "*" },
+            { "blankLine": "always", "prev": "*", "next": "if" },
+            { "blankLine": "always", "prev": "*", "next": "try" },
+            { "blankLine": "always", "prev": "*", "next": "return" },
+            { "blankLine": "always", "prev": "*", "next": "export" }
+        ],
+
+        // TypeScript
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/return-await": ["error", "always"],
+        "@typescript-eslint/typedef": [
+            "warn",
+            {
+                "arrowParameter": true,
+                "parameter": true,
+                "variableDeclaration": true
+            }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "warn",
+            {
+                "selector": "variableLike",
+                "format": ["camelCase"]
+            },
+            {
+                "selector": "parameter",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "function",
+                "format": ["camelCase", "PascalCase"],
+                "modifiers": ["exported"]
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+
+        // Prettier
+        "prettier/prettier": "warn",
+
+        // Check File
+        "check-file/filename-blocklist": [
+            "error",
+            {
+                "./src/**/*.js": "*.ts",
+                "./src/**/*.jsx": "*.tsx"
+            }
+        ],
+        "check-file/filename-naming-convention": [
+            "warn",
+            {
+                "**/*.(ts|tsx)": "KEBAB_CASE"
+            },
+            {
+                "ignoreMiddleExtensions": true
+            }
+        ],
+        "check-file/folder-naming-convention": [
+            "warn",
+            {
+                "src/**/": "KEBAB_CASE"
+            }
+        ],
+
+        // Import
+        "import/no-commonjs": "error",
+        "import/no-named-as-default": "off",
+        "import/no-anonymous-default-export": "off",
+        "import/no-named-as-default-member": "off",
+        "import/default": "off",
+
+        // React
+        "react/destructuring-assignment": [
+            "error",
+            "always",
+            { "destructureInSignature": "always" }
+        ],
+        "react/function-component-definition": [
+            "warn",
+            {
+                "namedComponents": "function-declaration"
+            }
+        ],
+        "react/jsx-closing-bracket-location": [
+            "warn",
+            {
+                "location": "tag-aligned"
+            }
+        ],
+        "react/jsx-newline": ["warn", { "prevent": false }],
+        "react/jsx-no-useless-fragment": "warn"
     }
 }
