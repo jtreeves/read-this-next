@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "build": "next build",
-        "check": "npm run test && npm run build && npm run lint && npm run format && echo '\nAll checks passed!'",
+        "check": "npm run build && npm run test && npm run lint && npm run format && echo '\nAll checks passed!'",
         "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf test-results",
         "dev": "next dev",
         "format": "prettier . --write",
