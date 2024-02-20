@@ -1,14 +1,13 @@
-import type { Config } from 'jest'
 import nextJest from 'next/jest.js'
 
 const createJestConfig = nextJest({
     dir: './'
 })
 
-const config: Config = {
+const config = {
     injectGlobals: true,
     testMatch: ['<rootDir>/src/**/*.test.(ts|tsx)'],
-    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.mjs'],
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1'
     },

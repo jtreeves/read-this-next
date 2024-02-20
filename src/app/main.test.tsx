@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react'
 import HomePage from './page'
 
 describe('HomePage', () => {
-    it('should render a heading', () => {
+    it('should render a heading matching name of site', () => {
         render(<HomePage />)
 
         const heading: HTMLElement = screen.getByRole('heading', { level: 1 })
 
-        expect(heading).toBeInTheDocument()
+        expect(heading.textContent).toEqual('Read This Next')
     })
 })
