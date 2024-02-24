@@ -5,7 +5,7 @@
     "scripts": {
         "build": "next build",
         "check": "npm run build && npm run test && npm run lint && npm run format && echo '\nAll checks passed!'",
-        "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf test-results",
+        "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf playwright-report && rm -rf test-results",
         "dev": "next dev",
         "format": "prettier . --write",
         "lint": "next lint --fix",
