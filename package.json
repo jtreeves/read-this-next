@@ -5,7 +5,7 @@
     "scripts": {
         "build": "next build",
         "check": "npm run build && npm run test && npm run lint && npm run format && echo '\nAll checks passed!'",
-        "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf test-results",
+        "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf playwright-report && rm -rf test-results",
         "dev": "next dev",
         "format": "prettier . --write",
         "lint": "next lint --fix",
@@ -48,7 +48,8 @@
         "postcss": "^8",
         "prettier": "^3.2.5",
         "tailwindcss": "^3.3.0",
+        "ts-jest": "^29.1.2",
         "ts-node": "^10.9.2",
-        "typescript": "^5"
+        "typescript": "^5.3.3"
     }
 }

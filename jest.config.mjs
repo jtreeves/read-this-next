@@ -15,7 +15,8 @@ const config = {
     collectCoverage: true,
     coverageDirectory: 'coverage',
     testEnvironment: 'jsdom',
-    coverageProvider: 'v8'
+    coverageProvider: 'v8',
+    watchman: false
 }
 
 export default createJestConfig(config)
