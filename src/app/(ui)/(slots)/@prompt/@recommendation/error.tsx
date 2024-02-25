@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect } from 'react'
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 import { ErrorProps } from '@/data/interfaces'
 
 export default function RecommendationError({
     error,
     reset
-}: ErrorProps): JSXElement {
+}: ErrorProps): Component {
     useEffect(() => {
         console.error(error)
     }, [error])

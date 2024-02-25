@@ -1,5 +1,5 @@
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 
-export default function BookDetailsLoading(): JSXElement {
+export default function BookDetailsLoading(): Component {
     return <p>Loading...</p>
 }

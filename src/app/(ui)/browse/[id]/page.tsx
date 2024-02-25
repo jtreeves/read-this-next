@@ -1,5 +1,5 @@
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 
-export default function BrowseIdPage(): JSXElement {
+export default function BrowseIdPage(): Component {
     return <>BrowseId</>
 }

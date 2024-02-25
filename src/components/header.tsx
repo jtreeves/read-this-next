@@ -1,5 +1,5 @@
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 
-export function Header(): JSXElement {
+export function Header(): Component {
     return <>Header</>
 }

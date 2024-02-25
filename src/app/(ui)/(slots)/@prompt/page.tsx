@@ -1,5 +1,5 @@
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 
-export default function PromptPage(): JSXElement {
+export default function PromptPage(): Component {
     return <>Prompt</>
 }

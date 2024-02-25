@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
-import type { DigestError } from './types'
+import { ReactNode } from 'react'
+import { DigestError } from './types'
 
 export interface ReactChildren {
     children: ReactNode

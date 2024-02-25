@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 import { ErrorProps } from '@/data/interfaces'
 
-export default function ProfileError({ error, reset }: ErrorProps): JSXElement {
+export default function ProfileError({ error, reset }: ErrorProps): Component {
     useEffect(() => {
         console.error(error)
     }, [error])

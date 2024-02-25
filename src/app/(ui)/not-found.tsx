@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 
-export default function RootNotFound(): JSXElement {
+export default function RootNotFound(): Component {
     return (
         <div>
             <h2>Not Found</h2>

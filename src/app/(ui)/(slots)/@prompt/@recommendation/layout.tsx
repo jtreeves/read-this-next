@@ -1,8 +1,8 @@
-import type { JSXElement } from '@/data/types'
+import { Component } from '@/data/types'
 import { ReactChildren } from '@/data/interfaces'
 
 export default function RecommendationLayout({
     children
-}: ReactChildren): JSXElement {
+}: ReactChildren): Component {
     return <div>{children}</div>
 }
