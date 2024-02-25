@@ -1,15 +1,6 @@
 import { Component } from '@/data/types'
-import { PromptLayoutProps } from '@/data/interfaces'
+import { ReactChildren } from '@/data/interfaces'
 
-export default function PromptLayout({
-    children,
-    recommendation
-}: PromptLayoutProps): Component {
-    return (
-        <div>
-            {children}
-
-            {recommendation}
-        </div>
-    )
+export default function PromptLayout({ children }: ReactChildren): Component {
+    return <div>{children}</div>
 }
