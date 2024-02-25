@@ -1,5 +1,5 @@
 import { Component } from '@/data/types'
 
-export default function BookDetailsLoading(): Component {
+export default function BooksLoading(): Component {
     return <p>Loading...</p>
 }

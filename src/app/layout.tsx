@@ -3,7 +3,7 @@ import { NextFont } from 'next/dist/compiled/@next/font'
 import { Inter } from 'next/font/google'
 import { Component } from '@/data/types'
 import { ReactChildren } from '@/data/interfaces'
-import '../globals.css'
+import './globals.css'
 
 const inter: NextFont = Inter({ subsets: ['latin'] })
 

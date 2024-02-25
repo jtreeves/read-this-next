@@ -4,10 +4,7 @@ import { useEffect } from 'react'
 import { Component } from '@/data/types'
 import { ErrorProps } from '@/data/interfaces'
 
-export default function BookDetailsError({
-    error,
-    reset
-}: ErrorProps): Component {
+export default function BookError({ error, reset }: ErrorProps): Component {
     useEffect(() => {
         console.error(error)
     }, [error])
