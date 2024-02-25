@@ -52,7 +52,7 @@
             "warn",
             {
                 "selector": "variableLike",
-                "format": ["camelCase"]
+                "format": ["camelCase", "UPPER_CASE"]
             },
             {
                 "selector": "parameter",
