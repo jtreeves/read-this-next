@@ -1,15 +1,6 @@
 import { Component } from '@/data/types'
-import { BooksLayoutProps } from '@/data/interfaces'
+import { ReactChildren } from '@/data/interfaces'
 
-export default function BooksLayout({
-    children,
-    book
-}: BooksLayoutProps): Component {
-    return (
-        <div>
-            {children}
-
-            {book}
-        </div>
-    )
+export default function BooksLayout({ children }: ReactChildren): Component {
+    return <div>{children}</div>
 }
