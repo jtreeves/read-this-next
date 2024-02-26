@@ -1,0 +1,5 @@
+export async function {{SERVICE_NAME}}(): Promise<any> {
+    const result: any = await {}
+
+    return result
+}

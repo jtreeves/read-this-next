@@ -1,3 +1,5 @@
 export function {{UTILITY_NAME}}(): any {
-    return {}
+    const result: any = {}
+
+    return result
 }

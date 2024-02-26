@@ -1,0 +1,39 @@
+#!/bin/bash
+
+FILE_NAME=$1
+SERVER_FLAG=false
+TEMPLATE_DIR="generate/templates"
+SERVICE_DIR="src/services"
+
+if [ -z "$FILE_NAME" ]; then
+  echo "You must provide a file name"
+  exit 1
+fi
+
+for arg in "$@"; do
+  case "$arg" in
+    -s)
+      SERVER_FLAG=true
+      ;;
+  esac
+done
+
+mkdir -p "$SERVICE_DIR"
+
+IFS="-" read -ra NAME_ARRAY <<< "$FILE_NAME"
+
+SERVICE_NAME="$(echo "${NAME_ARRAY[0]}" | awk '{print tolower($0)}')"
+
+for ((i=1; i<${#NAME_ARRAY[@]}; i++)); do
+  SERVICE_NAME+="$(echo "${NAME_ARRAY[i]}" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
+done
+
+sed "s/{{SERVICE_NAME}}/$SERVICE_NAME/g" "$TEMPLATE_DIR/service" > "$SERVICE_DIR/$FILE_NAME.ts"
+
+sed -e "s/{{SERVICE_NAME}}/$SERVICE_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/service.test" > "$SERVICE_DIR/$FILE_NAME.test.ts"
+
+if [ "$SERVER_FLAG" = true ]; then
+  echo -e "'use server'\n" | cat - "$SERVICE_DIR/$FILE_NAME.ts" > temp && mv temp "$SERVICE_DIR/$FILE_NAME.ts"
+fi
+
+echo "$SERVICE_NAME service created!"
