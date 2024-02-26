@@ -1,22 +1,15 @@
 #!/bin/bash
 
+source generate/helpers/check_for_name.sh
+source generate/helpers/process_flags.sh
+
 FILE_NAME=$1
-SERVER_FLAG=false
 TEMPLATE_DIR="generate/templates"
 SERVICE_DIR="src/services"
 
-if [ -z "$FILE_NAME" ]; then
-  echo "You must provide a file name"
-  exit 1
-fi
-
-for arg in "$@"; do
-  case "$arg" in
-    -s)
-      SERVER_FLAG=true
-      ;;
-  esac
-done
+check_for_name "$FILE_NAME"
+flags_result=$(process_flags "$@")
+eval "flags=($flags_result)"
 
 mkdir -p "$SERVICE_DIR"
 
@@ -32,7 +25,7 @@ sed "s/{{SERVICE_NAME}}/$SERVICE_NAME/g" "$TEMPLATE_DIR/service" > "$SERVICE_DIR
 
 sed -e "s/{{SERVICE_NAME}}/$SERVICE_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/service.test" > "$SERVICE_DIR/$FILE_NAME.test.ts"
 
-if [ "$SERVER_FLAG" = true ]; then
+if [ "${flags["SERVER_FLAG"]}" = true ]; then
   echo -e "'use server'\n" | cat - "$SERVICE_DIR/$FILE_NAME.ts" > temp && mv temp "$SERVICE_DIR/$FILE_NAME.ts"
 fi
 

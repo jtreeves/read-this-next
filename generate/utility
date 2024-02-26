@@ -1,13 +1,12 @@
 #!/bin/bash
 
+source generate/helpers/check_for_name.sh
+
 FILE_NAME=$1
 TEMPLATE_DIR="generate/templates"
 UTILITY_DIR="src/utilities"
 
-if [ -z "$FILE_NAME" ]; then
-  echo "You must provide a file name"
-  exit 1
-fi
+check_for_name "$FILE_NAME"
 
 mkdir -p "$UTILITY_DIR"
 
