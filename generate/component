@@ -1,6 +1,7 @@
 #!/bin/bash
 
 FILE_NAME=$1
+CLIENT_FLAG=false
 TEMPLATE_DIR="generate/templates"
 COMPONENT_DIR="src/components"
 
@@ -8,6 +9,14 @@ if [ -z "$FILE_NAME" ]; then
   echo "You must provide a file name"
   exit 1
 fi
+
+for arg in "$@"; do
+  case "$arg" in
+    -c)
+      CLIENT_FLAG=true
+      ;;
+  esac
+done
 
 mkdir -p "$COMPONENT_DIR"
 
@@ -22,5 +31,9 @@ done
 sed "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" "$TEMPLATE_DIR/component" > "$COMPONENT_DIR/$FILE_NAME.tsx"
 
 sed -e "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/component.test" > "$COMPONENT_DIR/$FILE_NAME.test.tsx"
+
+if [ "$CLIENT_FLAG" = true ]; then
+  echo -e "'use client'\n" | cat - "$COMPONENT_DIR/$FILE_NAME.tsx" > temp && mv temp "$COMPONENT_DIR/$FILE_NAME.tsx"
+fi
 
 echo "$COMPONENT_NAME component created!"
