@@ -1,0 +1,5 @@
+export function {{MAIN_NAME}}(): any {
+    const result: any = {}
+
+    return result
+}

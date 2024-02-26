@@ -1,0 +1,7 @@
+import { {{MAIN_NAME}} } from './{{FILE_NAME}}'
+
+describe('{{MAIN_NAME}} service', () => {
+    it('should be a function', () => {
+        expect(typeof {{MAIN_NAME}}).toBe('function')
+    })
+})

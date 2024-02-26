@@ -1,0 +1,5 @@
+import { Component } from '@/data/types'
+
+export function {{MAIN_NAME}}(): Component {
+    return <>{{MAIN_NAME}}</>
+}
