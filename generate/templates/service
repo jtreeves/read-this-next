@@ -1,4 +1,4 @@
-export async function {{SERVICE_NAME}}(): Promise<any> {
+export async function {{MAIN_NAME}}(): Promise<any> {
     const result: any = await {}
 
     return result

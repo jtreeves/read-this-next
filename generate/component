@@ -1,32 +1,26 @@
 #!/bin/bash
 
-source generate/helpers/check_for_name.sh
-source generate/helpers/process_flags.sh
+source generate/helpers/names.sh
+source generate/helpers/flags.sh
+source generate/helpers/directories.sh
 
 FILE_NAME=$1
+CONTENT_TYPE="component"
 TEMPLATE_DIR="generate/templates"
-COMPONENT_DIR="src/components"
+DESTINATION_DIR="src/components"
 
 check_for_name "$FILE_NAME"
 flags_result=$(process_flags "$@")
 eval "flags=($flags_result)"
+MAIN_NAME=$(create_pascal_case_name "$FILE_NAME")
+ensure_directories_exist "$DESTINATION_DIR"
 
-mkdir -p "$COMPONENT_DIR"
+sed "s/{{MAIN_NAME}}/$MAIN_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE" > "$DESTINATION_DIR/$FILE_NAME.tsx"
 
-IFS="-" read -ra NAME_ARRAY <<< "$FILE_NAME"
-
-COMPONENT_NAME=""
-
-for element in "${NAME_ARRAY[@]}"; do
-  COMPONENT_NAME+="$(echo "$element" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
-done
-
-sed "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" "$TEMPLATE_DIR/component" > "$COMPONENT_DIR/$FILE_NAME.tsx"
-
-sed -e "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/component.test" > "$COMPONENT_DIR/$FILE_NAME.test.tsx"
+sed -e "s/{{MAIN_NAME}}/$MAIN_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE.test" > "$DESTINATION_DIR/$FILE_NAME.test.tsx"
 
 if [ "${flags["CLIENT_FLAG"]}" = true ]; then
-  echo -e "'use client'\n" | cat - "$COMPONENT_DIR/$FILE_NAME.tsx" > temp && mv temp "$COMPONENT_DIR/$FILE_NAME.tsx"
+  echo -e "'use client'\n" | cat - "$DESTINATION_DIR/$FILE_NAME.tsx" > temp && mv temp "$DESTINATION_DIR/$FILE_NAME.tsx"
 fi
 
-echo "$COMPONENT_NAME component created!"
+echo "$MAIN_NAME $CONTENT_TYPE created!"

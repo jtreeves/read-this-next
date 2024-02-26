@@ -1,25 +1,19 @@
 #!/bin/bash
 
-source generate/helpers/check_for_name.sh
+source generate/helpers/names.sh
+source generate/helpers/directories.sh
 
 FILE_NAME=$1
+CONTENT_TYPE="utility"
 TEMPLATE_DIR="generate/templates"
-UTILITY_DIR="src/utilities"
+DESTINATION_DIR="src/utilities"
 
 check_for_name "$FILE_NAME"
+MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
+ensure_directories_exist "$DESTINATION_DIR"
 
-mkdir -p "$UTILITY_DIR"
+sed "s/{{MAIN_NAME}}/$MAIN_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE" > "$DESTINATION_DIR/$FILE_NAME.ts"
 
-IFS="-" read -ra NAME_ARRAY <<< "$FILE_NAME"
+sed -e "s/{{MAIN_NAME}}/$MAIN_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE.test" > "$DESTINATION_DIR/$FILE_NAME.test.ts"
 
-UTILITY_NAME="$(echo "${NAME_ARRAY[0]}" | awk '{print tolower($0)}')"
-
-for ((i=1; i<${#NAME_ARRAY[@]}; i++)); do
-  UTILITY_NAME+="$(echo "${NAME_ARRAY[i]}" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
-done
-
-sed "s/{{UTILITY_NAME}}/$UTILITY_NAME/g" "$TEMPLATE_DIR/utility" > "$UTILITY_DIR/$FILE_NAME.ts"
-
-sed -e "s/{{UTILITY_NAME}}/$UTILITY_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/utility.test" > "$UTILITY_DIR/$FILE_NAME.test.ts"
-
-echo "$UTILITY_NAME utility created!"
+echo "$MAIN_NAME $CONTENT_TYPE created!"

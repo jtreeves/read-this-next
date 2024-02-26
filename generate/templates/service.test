@@ -1,7 +1,7 @@
-import { {{SERVICE_NAME}} } from './{{FILE_NAME}}'
+import { {{MAIN_NAME}} } from './{{FILE_NAME}}'
 
-describe('{{SERVICE_NAME}} service', () => {
+describe('{{MAIN_NAME}} service', () => {
     it('should be a function', () => {
-        expect(typeof {{SERVICE_NAME}}).toBe('function')
+        expect(typeof {{MAIN_NAME}}).toBe('function')
     })
 })

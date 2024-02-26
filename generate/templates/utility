@@ -1,4 +1,4 @@
-export function {{UTILITY_NAME}}(): any {
+export function {{MAIN_NAME}}(): any {
     const result: any = {}
 
     return result

@@ -1,7 +1,7 @@
-import { {{UTILITY_NAME}} } from './{{FILE_NAME}}'
+import { {{MAIN_NAME}} } from './{{FILE_NAME}}'
 
-describe('{{UTILITY_NAME}} utility', () => {
+describe('{{MAIN_NAME}} utility', () => {
     it('should be a function', () => {
-        expect(typeof {{UTILITY_NAME}}).toBe('function')
+        expect(typeof {{MAIN_NAME}}).toBe('function')
     })
 })
