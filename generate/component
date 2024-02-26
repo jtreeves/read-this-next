@@ -3,24 +3,31 @@
 source generate/helpers/names.sh
 source generate/helpers/flags.sh
 source generate/helpers/directories.sh
+source generate/helpers/content.sh
+source generate/helpers/files.sh
+source generate/helpers/feedback.sh
 
 FILE_NAME=$1
 CONTENT_TYPE="component"
 TEMPLATE_DIR="generate/templates"
 DESTINATION_DIR="src/components"
+INTRO_DIRECTIVE="use client"
+EXTENSION="tsx"
 
 check_for_name "$FILE_NAME"
+ensure_directories_exist "$DESTINATION_DIR"
+
 flags_result=$(process_flags "$@")
 eval "flags=($flags_result)"
 MAIN_NAME=$(create_pascal_case_name "$FILE_NAME")
-ensure_directories_exist "$DESTINATION_DIR"
-
-sed "s/{{MAIN_NAME}}/$MAIN_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE" > "$DESTINATION_DIR/$FILE_NAME.tsx"
-
-sed -e "s/{{MAIN_NAME}}/$MAIN_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE.test" > "$DESTINATION_DIR/$FILE_NAME.test.tsx"
+CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
+TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
+final_content="$CORE_CONTENT"
 
 if [ "${flags["CLIENT_FLAG"]}" = true ]; then
-  echo -e "'use client'\n" | cat - "$DESTINATION_DIR/$FILE_NAME.tsx" > temp && mv temp "$DESTINATION_DIR/$FILE_NAME.tsx"
+  final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$CORE_CONTENT")
 fi
 
-echo "$MAIN_NAME $CONTENT_TYPE created!"
+create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$TEST_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "true"
+validate_entity_created "$MAIN_NAME" "$CONTENT_TYPE"

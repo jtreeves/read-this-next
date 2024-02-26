@@ -11,6 +11,7 @@ function check_for_name() {
 
 function create_camel_case_name() {
   local file_name="$1"
+
   IFS="-" read -ra name_array <<< "$file_name"
   main_name="$(echo "${name_array[0]}" | awk '{print tolower($0)}')"
 
@@ -23,6 +24,7 @@ function create_camel_case_name() {
 
 function create_pascal_case_name() {
   local file_name="$1"
+  
   IFS="-" read -ra name_array <<< "$file_name"
   main_name=""
 

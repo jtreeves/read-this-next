@@ -2,18 +2,23 @@
 
 source generate/helpers/names.sh
 source generate/helpers/directories.sh
+source generate/helpers/content.sh
+source generate/helpers/files.sh
+source generate/helpers/feedback.sh
 
 FILE_NAME=$1
 CONTENT_TYPE="utility"
 TEMPLATE_DIR="generate/templates"
 DESTINATION_DIR="src/utilities"
+EXTENSION="ts"
 
 check_for_name "$FILE_NAME"
-MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
 ensure_directories_exist "$DESTINATION_DIR"
 
-sed "s/{{MAIN_NAME}}/$MAIN_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE" > "$DESTINATION_DIR/$FILE_NAME.ts"
+MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
+CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
+TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
 
-sed -e "s/{{MAIN_NAME}}/$MAIN_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/$CONTENT_TYPE.test" > "$DESTINATION_DIR/$FILE_NAME.test.ts"
-
-echo "$MAIN_NAME $CONTENT_TYPE created!"
+create_file "$CORE_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$TEST_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "true"
+validate_entity_created "$MAIN_NAME" "$CONTENT_TYPE"
