@@ -25,7 +25,7 @@ function prepend_directive_to_content() {
   local intro_directive="$1"
   local content="$2"
 
-  result="$intro_directive\n$content"
+  result="'$intro_directive'"$'\n\n'"$content"
 
   echo "$result"
 }
