@@ -1,0 +1,12 @@
+import { render, screen } from '@testing-library/react'
+import { {{COMPONENT_NAME}} } from './{{FILE_NAME}}'
+
+describe('{{COMPONENT_NAME}} component', () => {
+    it('should render the word {{COMPONENT_NAME}}', () => {
+        render(<{{COMPONENT_NAME}} />)
+
+        const content: HTMLElement = screen.getByText('{{COMPONENT_NAME}}')
+
+        expect(content).toBeInTheDocument()
+    })
+})

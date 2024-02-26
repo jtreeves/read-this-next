@@ -1,0 +1,26 @@
+#!/bin/bash
+
+FILE_NAME=$1
+TEMPLATE_DIR="generate/templates"
+UTILITY_DIR="src/utilities"
+
+if [ -z "$FILE_NAME" ]; then
+  echo "You must provide a file name"
+  exit 1
+fi
+
+mkdir -p "$UTILITY_DIR"
+
+IFS="-" read -ra NAME_ARRAY <<< "$FILE_NAME"
+
+UTILITY_NAME="$(echo "${NAME_ARRAY[0]}" | awk '{print tolower($0)}')"
+
+for ((i=1; i<${#NAME_ARRAY[@]}; i++)); do
+  UTILITY_NAME+="$(echo "${NAME_ARRAY[i]}" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
+done
+
+sed "s/{{UTILITY_NAME}}/$UTILITY_NAME/g" "$TEMPLATE_DIR/utility" > "$UTILITY_DIR/$FILE_NAME.ts"
+
+sed -e "s/{{UTILITY_NAME}}/$UTILITY_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/utility.test" > "$UTILITY_DIR/$FILE_NAME.test.ts"
+
+echo "$UTILITY_NAME utility created!"

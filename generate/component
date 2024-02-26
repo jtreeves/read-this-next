@@ -1,0 +1,26 @@
+#!/bin/bash
+
+FILE_NAME=$1
+TEMPLATE_DIR="generate/templates"
+COMPONENT_DIR="src/components"
+
+if [ -z "$FILE_NAME" ]; then
+  echo "You must provide a file name"
+  exit 1
+fi
+
+mkdir -p "$COMPONENT_DIR"
+
+IFS="-" read -ra NAME_ARRAY <<< "$FILE_NAME"
+
+COMPONENT_NAME=""
+
+for element in "${NAME_ARRAY[@]}"; do
+  COMPONENT_NAME+="$(echo "$element" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
+done
+
+sed "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" "$TEMPLATE_DIR/component" > "$COMPONENT_DIR/$FILE_NAME.tsx"
+
+sed -e "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/component.test" > "$COMPONENT_DIR/$FILE_NAME.test.tsx"
+
+echo "$COMPONENT_NAME component created!"

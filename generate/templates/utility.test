@@ -1,0 +1,7 @@
+import { {{UTILITY_NAME}} } from './{{FILE_NAME}}'
+
+describe('{{UTILITY_NAME}} utility', () => {
+    it('should be a function', () => {
+        expect(typeof {{UTILITY_NAME}}).toBe('function')
+    })
+})

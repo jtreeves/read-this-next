@@ -1,0 +1,5 @@
+import { Component } from '@/data/types'
+
+export function {{COMPONENT_NAME}}(): Component {
+    return <>{{COMPONENT_NAME}}</>
+}

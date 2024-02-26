@@ -8,6 +8,7 @@
         "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf playwright-report && rm -rf test-results",
         "dev": "next dev",
         "format": "prettier . --write",
+        "generators-setup": "chmod +x generate/*",
         "lint": "next lint --fix",
         "lint-staged": "lint-staged",
         "lint-strict": "next lint --max-warnings=0",
