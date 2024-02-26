@@ -1,6 +1,6 @@
 import { {{SERVICE_NAME}} } from './{{FILE_NAME}}'
 
-describe('{{SERVICE_NAME}} utility', () => {
+describe('{{SERVICE_NAME}} service', () => {
     it('should be a function', () => {
         expect(typeof {{SERVICE_NAME}}).toBe('function')
     })

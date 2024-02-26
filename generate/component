@@ -1,22 +1,15 @@
 #!/bin/bash
 
+source generate/helpers/check_for_name.sh
+source generate/helpers/process_flags.sh
+
 FILE_NAME=$1
-CLIENT_FLAG=false
 TEMPLATE_DIR="generate/templates"
 COMPONENT_DIR="src/components"
 
-if [ -z "$FILE_NAME" ]; then
-  echo "You must provide a file name"
-  exit 1
-fi
-
-for arg in "$@"; do
-  case "$arg" in
-    -c)
-      CLIENT_FLAG=true
-      ;;
-  esac
-done
+check_for_name "$FILE_NAME"
+flags_result=$(process_flags "$@")
+eval "flags=($flags_result)"
 
 mkdir -p "$COMPONENT_DIR"
 
@@ -32,7 +25,7 @@ sed "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" "$TEMPLATE_DIR/component" > "$COMPO
 
 sed -e "s/{{COMPONENT_NAME}}/$COMPONENT_NAME/g" -e "s/{{FILE_NAME}}/$FILE_NAME/g" "$TEMPLATE_DIR/component.test" > "$COMPONENT_DIR/$FILE_NAME.test.tsx"
 
-if [ "$CLIENT_FLAG" = true ]; then
+if [ "${flags["CLIENT_FLAG"]}" = true ]; then
   echo -e "'use client'\n" | cat - "$COMPONENT_DIR/$FILE_NAME.tsx" > temp && mv temp "$COMPONENT_DIR/$FILE_NAME.tsx"
 fi
 
