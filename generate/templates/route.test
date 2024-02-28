@@ -1,0 +1,7 @@
+import { GET } from './route'
+
+describe('GET handler for {{MAIN_NAME}} route', () => {
+    it('should be a function', () => {
+        expect(typeof GET).toBe('function')
+    })
+})

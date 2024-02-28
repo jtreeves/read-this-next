@@ -1,5 +1,11 @@
-export async function {{MAIN_NAME}}(): Promise<any> {
-    const result: any = await {}
+import { ServiceError } from '@/data/errors'
 
-    return result
+export async function {{MAIN_NAME}}(): Promise<any> {
+    try {
+        const result: any = await {}
+
+        return result
+    } catch (error: unknown) {
+        throw new ServiceError({{MAIN_NAME}}.name, error)
+    }
 }

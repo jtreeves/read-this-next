@@ -1,0 +1,12 @@
+import { render, screen } from '@testing-library/react'
+import {{MAIN_NAME}}Page from './page'
+
+describe('{{MAIN_NAME}}Page view', () => {
+    it('should render the word {{MAIN_NAME}}', () => {
+        render(<{{MAIN_NAME}}Page />)
+
+        const heading: HTMLElement = screen.getByText('{{MAIN_NAME}}')
+
+        expect(heading).toBeInTheDocument()
+    })
+})

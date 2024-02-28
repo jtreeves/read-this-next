@@ -1,0 +1,32 @@
+#!/bin/bash
+
+source generate/helpers/names.sh
+source generate/helpers/flags.sh
+source generate/helpers/directories.sh
+source generate/helpers/content.sh
+source generate/helpers/files.sh
+source generate/helpers/feedback.sh
+
+FILE_NAME=$1
+CONTENT_TYPE="route"
+TEMPLATE_DIR="generate/templates"
+DESTINATION_DIR="src/app/api"
+EXTENSION="ts"
+
+check_for_name "$FILE_NAME"
+ensure_directories_exist "$DESTINATION_DIR"
+
+flags_result=$(process_flags "$@")
+eval "flags=($flags_result)"
+MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
+CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
+TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
+final_content="$CORE_CONTENT"
+
+if [ "${flags["SERVER_FLAG"]}" = true ]; then
+  final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$CORE_CONTENT")
+fi
+
+create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$TEST_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "true"
+validate_entity_created "$MAIN_NAME" "$CONTENT_TYPE"
