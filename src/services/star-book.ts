@@ -1,5 +1,11 @@
-export async function starBook(): Promise<string> {
-    const result: string = await ''
+import { ServiceError } from '@/data/errors'
 
-    return result
+export async function starBook(): Promise<string> {
+    try {
+        const result: string = await ''
+
+        return result
+    } catch (error: unknown) {
+        throw new ServiceError(starBook.name, error)
+    }
 }
