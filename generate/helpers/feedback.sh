@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function validate_entity_created() {
+function confirm_entity_created() {
   local main_name="$1"
   local content_type="$2"
 

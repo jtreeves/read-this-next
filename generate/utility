@@ -1,7 +1,7 @@
 #!/bin/bash
 
+source generate/helpers/validators.sh
 source generate/helpers/names.sh
-source generate/helpers/directories.sh
 source generate/helpers/content.sh
 source generate/helpers/files.sh
 source generate/helpers/feedback.sh
@@ -21,4 +21,4 @@ TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TY
 
 create_file "$CORE_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
 create_file "$TEST_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "true"
-validate_entity_created "$MAIN_NAME" "$CONTENT_TYPE"
+confirm_entity_created "$MAIN_NAME" "$CONTENT_TYPE"

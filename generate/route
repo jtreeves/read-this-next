@@ -1,8 +1,8 @@
 #!/bin/bash
 
+source generate/helpers/validators.sh
 source generate/helpers/names.sh
 source generate/helpers/flags.sh
-source generate/helpers/directories.sh
 source generate/helpers/content.sh
 source generate/helpers/files.sh
 source generate/helpers/feedback.sh
