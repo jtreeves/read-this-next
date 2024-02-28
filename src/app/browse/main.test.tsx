@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import BrowsePage from './page'
 
-describe('BrowsePage', () => {
+describe('BrowsePage view', () => {
     it('should render the word Browse', () => {
         render(<BrowsePage />)
 
