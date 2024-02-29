@@ -79,13 +79,11 @@ export class ApiError extends CustomError {
 }
 
 export class FetchError extends CustomError {
-    constructor(cause: unknown) {
-        super(cause)
+    constructor() {
+        super(null)
 
         this.name = 'FetchError'
         this.message = 'An error occurred while using the fetch method'
-
-        this.appendCauseMessage()
     }
 }
 

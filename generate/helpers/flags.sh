@@ -20,6 +20,9 @@ function process_flags() {
         -e)
             flags["ERROR_FLAG"]=true
             ;;
+        -ftc)
+            flags["FETCH_FLAG"]=true
+            ;;
         -get)
             flags["GET_FLAG"]=true
             ;;

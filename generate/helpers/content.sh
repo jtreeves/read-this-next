@@ -16,7 +16,7 @@ function determine_content_for_test() {
     local main_name="$2"
     local content_type="$3"
 
-    content=$(sed -e "s/{{MAIN_NAME}}/$main_name/g" -e "s/{{FILE_NAME}}/$file_name/g" "$TEMPLATE_DIR/$content_type.test")
+    content=$(sed -e "s/{{MAIN_NAME}}/$main_name/g" -e "s/{{FILE_NAME}}/$file_name/g" "$TEMPLATE_DIR/tests/$content_type")
 
     echo "$content"
 }
