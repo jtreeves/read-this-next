@@ -25,7 +25,7 @@ TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TY
 final_content="$CORE_CONTENT"
 
 if [ "${flags["CLIENT_FLAG"]}" = true ]; then
-  final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$CORE_CONTENT")
+    final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$CORE_CONTENT")
 fi
 
 create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
