@@ -7,9 +7,58 @@ source generate/helpers/content.sh
 source generate/helpers/files.sh
 source generate/helpers/feedback.sh
 
-FILE_NAME=$1
+CORE_PATH="$1"
+IFS="/"
+read -ra PATH_DIRS <<<"$CORE_PATH"
+unset IFS
+FOLDER_NAME="$2"
+SRC_DIR="src"
+APP_DIR="app"
+DIRECTORIES=("$SRC_DIR" "$APP_DIR")
+if [ "$CORE_PATH" != "/" ]; then
+    DIRECTORIES+=("${PATH_DIRS[@]}")
+fi
+DIRECTORIES+=("$FOLDER_NAME")
+
+FILE_NAME="page"
 CONTENT_TYPE="component"
 TEMPLATE_DIR="generate/templates"
-DESTINATION_DIR="src/components"
+DESTINATION_DIR="$SRC_DIR/$APP_DIR"
+if [ "$CORE_PATH" != "/" ]; then
+    DESTINATION_DIR+="/$CORE_PATH"
+fi
+DESTINATION_DIR+="/$FOLDER_NAME"
+
+for i in "${DIRECTORIES[@]}"; do
+    mkdir -p "$i"
+    if [ -d "$i" ]; then
+        cd "$i"
+    fi
+done
+
+cd_list=""
+
+for ((i = 0; i < "${#DIRECTORIES[@]}"; i++)); do
+    cd_list="../$cd_list"
+done
+
+cd "$cd_list"
+
 INTRO_DIRECTIVE="use client"
 EXTENSION="tsx"
+
+flags_result=$(process_flags "$@")
+eval "flags=($flags_result)"
+MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
+CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
+TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
+final_content=$(adjust_content_for_page "$CORE_CONTENT")
+final_test=$(adjust_content_for_page_test "$TEST_CONTENT")
+
+if [ "${flags["CLIENT_FLAG"]}" = true ]; then
+    final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$CORE_CONTENT")
+fi
+
+create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$final_test" "main" "$DESTINATION_DIR" "$EXTENSION" "true"
+confirm_entity_created "$MAIN_NAME" "page"

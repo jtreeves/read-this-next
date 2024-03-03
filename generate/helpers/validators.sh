@@ -8,9 +8,20 @@ function check_for_name() {
         exit 1
     fi
 }
+function check_for_path() {
+    local path="$1"
+
+    if [ -z "$path" ]; then
+        echo "Error: You must provide a path"
+        exit 1
+    fi
+}
 
 function ensure_directories_exist() {
     local directory_path="$1"
 
-    mkdir -p "$directory_path"
+    # final_path=$(echo "$directory_path" | sed 's/\/\/\//\//')
+    final_path="$directory_path"
+
+    mkdir -p "\"$final_path\""
 }

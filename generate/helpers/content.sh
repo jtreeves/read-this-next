@@ -29,3 +29,23 @@ function prepend_directive_to_content() {
 
     echo "$result"
 }
+
+function adjust_content_for_page() {
+    local component_content="$1"
+
+    page_content=$(echo "$component_content" | sed 's/export/export default/')
+    page_content=$(echo "$page_content" | sed 's/()/Page()/')
+
+    echo "$page_content"
+}
+
+function adjust_content_for_page_test() {
+    local component_test="$1"
+
+    page_test=$(echo "$component_test" | sed 's/ component/Page view/')
+    page_test=$(echo "$page_test" | sed '2 s/{[[:space:]]\(.*\)[[:space:]]}/\1/')
+    page_test=$(echo "$page_test" | sed '2 s/ from/Page from/')
+    page_test=$(echo "$page_test" | sed 's/ \/>/Page \/>/')
+
+    echo "$page_test"
+}
