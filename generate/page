@@ -8,25 +8,27 @@ source generate/helpers/files.sh
 source generate/helpers/feedback.sh
 
 CORE_PATH="$1"
-IFS="/"
-read -ra PATH_DIRS <<<"$CORE_PATH"
-unset IFS
 FOLDER_NAME="$2"
 SRC_DIR="src"
 APP_DIR="app"
-DIRECTORIES=("$SRC_DIR" "$APP_DIR")
-if [ "$CORE_PATH" != "/" ]; then
-    DIRECTORIES+=("${PATH_DIRS[@]}")
-fi
-DIRECTORIES+=("$FOLDER_NAME")
-
 FILE_NAME="page"
 CONTENT_TYPE="component"
 TEMPLATE_DIR="generate/templates"
+INTRO_DIRECTIVE="use client"
+EXTENSION="tsx"
+DIRECTORIES=("$SRC_DIR" "$APP_DIR")
 DESTINATION_DIR="$SRC_DIR/$APP_DIR"
+
 if [ "$CORE_PATH" != "/" ]; then
+    IFS="/"
+    read -ra PATH_DIRS <<<"$CORE_PATH"
+    unset IFS
+
+    DIRECTORIES+=("${PATH_DIRS[@]}")
     DESTINATION_DIR+="/$CORE_PATH"
 fi
+
+DIRECTORIES+=("$FOLDER_NAME")
 DESTINATION_DIR+="/$FOLDER_NAME"
 
 for i in "${DIRECTORIES[@]}"; do
@@ -43,9 +45,6 @@ for ((i = 0; i < "${#DIRECTORIES[@]}"; i++)); do
 done
 
 cd "$cd_list"
-
-INTRO_DIRECTIVE="use client"
-EXTENSION="tsx"
 
 flags_result=$(process_flags "$@")
 eval "flags=($flags_result)"
