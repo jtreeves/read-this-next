@@ -30,18 +30,14 @@ fi
 
 DIRECTORIES+=("$FOLDER_NAME")
 DESTINATION_DIR+="/$FOLDER_NAME"
+cd_list=""
 
 for i in "${DIRECTORIES[@]}"; do
     mkdir -p "$i"
     if [ -d "$i" ]; then
         cd "$i"
+        cd_list="../$cd_list"
     fi
-done
-
-cd_list=""
-
-for ((i = 0; i < "${#DIRECTORIES[@]}"; i++)); do
-    cd_list="../$cd_list"
 done
 
 cd "$cd_list"
