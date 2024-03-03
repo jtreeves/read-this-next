@@ -1,3 +1,5 @@
+// NEW BASE CLASS
+
 export class CustomError extends Error {
     cause: Error
 
@@ -20,15 +22,31 @@ export class CustomError extends Error {
     }
 }
 
-export class ServiceError extends CustomError {
-    service: string
+// SOPHISTICATED EXTENSIONS OF NEW BASE CLASS
 
-    constructor(service: string, cause: unknown) {
+export class ApiError extends CustomError {
+    api: string
+
+    constructor(api: string, cause: unknown) {
         super(cause)
 
-        this.name = 'ServiceError'
-        this.service = service
-        this.message = `An error occurred in the ${this.service} service function`
+        this.name = 'ApiError'
+        this.api = api
+        this.message = `An API error occurred with the ${this.api} API`
+
+        this.appendCauseMessage()
+    }
+}
+
+export class DatabaseError extends CustomError {
+    table: string
+
+    constructor(table: string, cause: unknown) {
+        super(cause)
+
+        this.name = 'DatabaseError'
+        this.table = table
+        this.message = `A database error occurred with the ${this.table} table`
 
         this.appendCauseMessage()
     }
@@ -50,33 +68,21 @@ export class RouteError extends CustomError {
     }
 }
 
-export class DatabaseError extends CustomError {
-    table: string
+export class ServiceError extends CustomError {
+    service: string
 
-    constructor(table: string, cause: unknown) {
+    constructor(service: string, cause: unknown) {
         super(cause)
 
-        this.name = 'DatabaseError'
-        this.table = table
-        this.message = `A database error occurred with the ${this.table} table`
+        this.name = 'ServiceError'
+        this.service = service
+        this.message = `An error occurred in the ${this.service} service function`
 
         this.appendCauseMessage()
     }
 }
 
-export class ApiError extends CustomError {
-    api: string
-
-    constructor(api: string, cause: unknown) {
-        super(cause)
-
-        this.name = 'ApiError'
-        this.api = api
-        this.message = `An API error occurred with the ${this.api} API`
-
-        this.appendCauseMessage()
-    }
-}
+// SIMPLE EXTENSIONS OF NEW BASE CLASS
 
 export class FetchError extends CustomError {
     constructor() {
@@ -86,6 +92,8 @@ export class FetchError extends CustomError {
         this.message = 'An error occurred while using the fetch method'
     }
 }
+
+// AUTH EXTENSIONS OF NEW BASE CLASS
 
 export class AuthError extends CustomError {
     constructor(cause: unknown) {
