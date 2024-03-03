@@ -3,49 +3,49 @@
 function process_flags() {
     for arg in "$@"; do
         case "$arg" in
-        -a)
+        -a | --async)
             export ASYNC_FLAG=true
             ;;
-        -c)
+        -c | --client)
             export CLIENT_FLAG=true
             ;;
-        -dy)
+        -dy | --dynamic)
             export DYNAMIC_FLAG=true
             ;;
-        -del)
+        -de | --delete)
             export DELETE_FLAG=true
             ;;
-        -er)
+        -e | --error)
             export ERROR_FLAG=true
             ;;
-        -fet)
+        -f | --fetch)
             export FETCH_FLAG=true
             ;;
-        -get)
+        -g | --get)
             export GET_FLAG=true
             ;;
-        -lo)
+        -l | --loading)
             export LOADING_FLAG=true
             ;;
-        -m)
+        -m | --meta)
             export META_FLAG=true
             ;;
-        -nf)
+        -n | --non-found)
             export NOT_FOUND_FLAG=true
             ;;
-        -pat)
+        -pa | --patch)
             export PATCH_FLAG=true
             ;;
-        -post)
+        -po | --post)
             export POST_FLAG=true
             ;;
-        -put)
+        -pu | --put)
             export PUT_FLAG=true
             ;;
-        -s)
+        -s | --server)
             export SERVER_FLAG=true
             ;;
-        -sl)
+        -sl | --slot)
             export SLOT_FLAG=true
             ;;
         esac
