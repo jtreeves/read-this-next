@@ -46,6 +46,7 @@ flags_result=$(process_flags "$@")
 eval "flags=($flags_result)"
 MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
+LAYOUT_CONTENT=$(determine_content_for_core "$MAIN_NAME" "layout")
 TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
 final_content=$(adjust_content_for_page "$CORE_CONTENT")
 final_test=$(adjust_content_for_page_test "$TEST_CONTENT")
@@ -55,5 +56,6 @@ if [ "${flags["CLIENT_FLAG"]}" = true ]; then
 fi
 
 create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$LAYOUT_CONTENT" "layout" "$DESTINATION_DIR" "$EXTENSION" "false"
 create_file "$final_test" "main" "$DESTINATION_DIR" "$EXTENSION" "true"
 confirm_entity_created "$MAIN_NAME" "page"
