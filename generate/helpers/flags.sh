@@ -11,22 +11,22 @@ function process_flags() {
         -c)
             flags["CLIENT_FLAG"]=true
             ;;
-        -d)
+        -dy)
             flags["DYNAMIC_FLAG"]=true
             ;;
         -del)
             flags["DELETE_FLAG"]=true
             ;;
-        -e)
+        -er)
             flags["ERROR_FLAG"]=true
             ;;
-        -ftc)
+        -fet)
             flags["FETCH_FLAG"]=true
             ;;
         -get)
             flags["GET_FLAG"]=true
             ;;
-        -l)
+        -lo)
             flags["LOADING_FLAG"]=true
             ;;
         -nf)
