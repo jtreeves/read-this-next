@@ -1,6 +1,3 @@
-import { Component } from '@/data/types'
-import { ReactChildren } from '@/data/interfaces'
-
 export default function {{MAIN_NAME}}Layout({ children }: ReactChildren): Component {
     return <div>{children}</div>
 }
