@@ -42,7 +42,10 @@ done
 
 cd "$cd_list"
 
+check_for_path "$CORE_PATH"
+check_for_name "$FOLDER_NAME"
 process_flags "$@"
+
 MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
 TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
