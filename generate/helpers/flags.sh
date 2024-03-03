@@ -29,6 +29,9 @@ function process_flags() {
         -lo)
             flags["LOADING_FLAG"]=true
             ;;
+        -m)
+            flags["METADATA_FLAG"]=true
+            ;;
         -nf)
             flags["NOT_FOUND_FLAG"]=true
             ;;
