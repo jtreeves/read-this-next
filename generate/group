@@ -1,0 +1,37 @@
+#!/bin/bash
+
+source generate/helpers/validators.sh
+source generate/helpers/names.sh
+source generate/helpers/flags.sh
+source generate/helpers/content.sh
+source generate/helpers/files.sh
+source generate/helpers/feedback.sh
+
+CORE_PATH="$1"
+GROUP="$2"
+SRC_DIR="src"
+APP_DIR="app"
+DIRECTORIES=("$SRC_DIR" "$APP_DIR")
+
+if [ "$CORE_PATH" != "/" ]; then
+    IFS="/"
+    read -ra PATH_DIRS <<<"$CORE_PATH"
+    unset IFS
+
+    DIRECTORIES+=("${PATH_DIRS[@]}")
+fi
+
+DIRECTORIES+=("($GROUP)")
+cd_list=""
+
+for i in "${DIRECTORIES[@]}"; do
+    mkdir -p "$i"
+    if [ -d "$i" ]; then
+        cd "$i"
+        cd_list="../$cd_list"
+    fi
+done
+
+cd "$cd_list"
+
+confirm_entity_created "$GROUP" "group"
