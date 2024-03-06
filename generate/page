@@ -19,6 +19,8 @@ EXTENSION="tsx"
 DIRECTORIES=("$SRC_DIR" "$APP_DIR")
 DESTINATION_DIR="$SRC_DIR/$APP_DIR"
 
+process_flags "$@"
+
 if [ "$CORE_PATH" != "/" ]; then
     IFS="/"
     read -ra PATH_DIRS <<<"$CORE_PATH"
@@ -26,6 +28,10 @@ if [ "$CORE_PATH" != "/" ]; then
 
     DIRECTORIES+=("${PATH_DIRS[@]}")
     DESTINATION_DIR+="/$CORE_PATH"
+fi
+
+if [ "$DYNAMIC_FLAG" = true ]; then
+    FOLDER_NAME="[$FOLDER_NAME]"
 fi
 
 DIRECTORIES+=("$FOLDER_NAME")
@@ -44,7 +50,6 @@ cd "$cd_list"
 
 check_for_path "$CORE_PATH"
 check_for_name "$FOLDER_NAME"
-process_flags "$@"
 
 MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
