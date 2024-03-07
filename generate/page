@@ -20,6 +20,9 @@ DIRECTORIES=("$SRC_DIR" "$APP_DIR")
 DESTINATION_DIR="$SRC_DIR/$APP_DIR"
 
 process_flags "$@"
+check_for_name "$FOLDER_NAME"
+
+MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 
 if [ "$CORE_PATH" != "/" ]; then
     IFS="/"
@@ -32,6 +35,10 @@ fi
 
 if [ "$DYNAMIC_FLAG" = true ]; then
     FOLDER_NAME="[$FOLDER_NAME]"
+fi
+
+if [ "$SLOT_FLAG" = true ]; then
+    FOLDER_NAME="@$FOLDER_NAME"
 fi
 
 DIRECTORIES+=("$FOLDER_NAME")
@@ -49,9 +56,7 @@ done
 cd "$cd_list"
 
 check_for_path "$CORE_PATH"
-check_for_name "$FOLDER_NAME"
 
-MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
 TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
 final_content=$(adjust_content_for_page "$CORE_CONTENT")
