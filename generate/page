@@ -81,6 +81,11 @@ if [ "$ERROR_FLAG" = true ]; then
     create_file "$error_content" "error" "$DESTINATION_DIR" "$EXTENSION" "false"
 fi
 
+if [ "$NOT_FOUND_FLAG" = true ]; then
+    not_found_content=$(determine_content_for_core "$MAIN_NAME" "not-found")
+    create_file "$not_found_content" "not-found" "$DESTINATION_DIR" "$EXTENSION" "false"
+fi
+
 if [ "$META_FLAG" = true ]; then
     layout_content=$(create_layout "$MAIN_NAME" "true")
 else
