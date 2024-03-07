@@ -53,6 +53,17 @@ function prepend_directive_to_content() {
     echo "$result"
 }
 
+function make_page_async() {
+    local page_content="$1"
+
+    async_content=$(echo "$page_content" | sed 's/default function/default async function/')
+    async_content=$(echo "$async_content" | sed 's/: Component/: Promise<Component>/')
+    async_content=$(echo "$async_content" | sed 's/return/const result: any = await {}\n\n    return/')
+    async_content=$(echo "$async_content" | sed 's|</>|: {result}</>|')
+
+    echo "$async_content"
+}
+
 function adjust_content_for_page() {
     local component_content="$1"
 

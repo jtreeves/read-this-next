@@ -58,6 +58,10 @@ final_content=$(adjust_content_for_page "$CORE_CONTENT")
 final_test=$(adjust_content_for_page_test "$TEST_CONTENT")
 layout_content=""
 
+if [ "$ASYNC_FLAG" = true ]; then
+    final_content=$(make_page_async "$final_content")
+fi
+
 if [ "$CLIENT_FLAG" = true ]; then
     final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$final_content")
 fi
