@@ -71,6 +71,11 @@ if [ "$CLIENT_FLAG" = true ]; then
     final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$final_content")
 fi
 
+if [ "$LOADING_FLAG" = true ]; then
+    loading_content=$(determine_content_for_core "$MAIN_NAME" "loading")
+    create_file "$loading_content" "loading" "$DESTINATION_DIR" "$EXTENSION" "false"
+fi
+
 if [ "$META_FLAG" = true ]; then
     layout_content=$(create_layout "$MAIN_NAME" "true")
 else
