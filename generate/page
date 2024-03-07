@@ -76,6 +76,11 @@ if [ "$LOADING_FLAG" = true ]; then
     create_file "$loading_content" "loading" "$DESTINATION_DIR" "$EXTENSION" "false"
 fi
 
+if [ "$ERROR_FLAG" = true ]; then
+    error_content=$(determine_content_for_core "$MAIN_NAME" "error")
+    create_file "$error_content" "error" "$DESTINATION_DIR" "$EXTENSION" "false"
+fi
+
 if [ "$META_FLAG" = true ]; then
     layout_content=$(create_layout "$MAIN_NAME" "true")
 else
