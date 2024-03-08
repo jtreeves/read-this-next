@@ -7,26 +7,53 @@ source generate/helpers/content.sh
 source generate/helpers/files.sh
 source generate/helpers/feedback.sh
 
-FILE_NAME=$1
+CORE_PATH="$1"
+FOLDER_NAME="$2"
+MAIN_NAME="$2"
+SRC_DIR="src"
+APP_DIR="app"
+API_DIR="api"
 CONTENT_TYPE="route"
 TEMPLATE_DIR="generate/templates"
-DESTINATION_DIR="src/app/api"
+DIRECTORIES=("$SRC_DIR" "$APP_DIR" "$API_DIR")
+DESTINATION_DIR="$SRC_DIR/$APP_DIR/$API_DIR"
 EXTENSION="ts"
 
-check_for_name "$FILE_NAME"
-ensure_directories_exist "$DESTINATION_DIR"
+process_flags "$@"
+check_for_name "$MAIN_NAME"
+check_for_path "$CORE_PATH"
 
-flags_result=$(process_flags "$@")
-eval "flags=($flags_result)"
-MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
-CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
-TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
-final_content="$CORE_CONTENT"
+if [ "$CORE_PATH" != "/" ]; then
+    IFS="/"
+    read -ra PATH_DIRS <<<"$CORE_PATH"
+    unset IFS
 
-if [ "${flags["SERVER_FLAG"]}" = true ]; then
-    final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$CORE_CONTENT")
+    DIRECTORIES+=("${PATH_DIRS[@]}")
+    DESTINATION_DIR+="/$CORE_PATH"
 fi
 
-create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
-create_file "$TEST_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "true"
-validate_entity_created "$MAIN_NAME" "$CONTENT_TYPE"
+if [ "$DYNAMIC_FLAG" = true ]; then
+    FOLDER_NAME="[$FOLDER_NAME]"
+fi
+
+DIRECTORIES+=("$FOLDER_NAME")
+DESTINATION_DIR+="/$FOLDER_NAME"
+cd_list=""
+
+for i in "${DIRECTORIES[@]}"; do
+    mkdir -p "$i"
+    if [ -d "$i" ]; then
+        cd "$i"
+        cd_list="../$cd_list"
+    fi
+done
+
+cd "$cd_list"
+
+CORE_CONTENT=$(determine_content_for_core "$CONTENT_TYPE" "$CONTENT_TYPE")
+TEST_CONTENT=$(determine_content_for_test "$CONTENT_TYPE" "$CONTENT_TYPE" "$CONTENT_TYPE")
+final_content="$CORE_CONTENT"
+
+create_file "$final_content" "$CONTENT_TYPE" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$TEST_CONTENT" "$CONTENT_TYPE" "$DESTINATION_DIR" "$EXTENSION" "true"
+confirm_entity_created "$MAIN_NAME" "$CONTENT_TYPE"

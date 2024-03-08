@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { SuccessCode, FailureCode } from '@/data/enums'
+import { SuccessStatus, FailureStatus } from '@/data/enums'
 import { JSON_CONTENT_HEADER } from '@/data/constants'
 import { createFetchOptions } from '@/utilities/create-fetch-options'
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
     try {
+        const url: string = request.nextUrl.toString()
         const options: RequestInit = createFetchOptions('GET')
-        const response: Response = await fetch('/', options)
+        const response: Response = await fetch(url, options)
         const data: any = await response.json()
-    
-        return NextResponse.json({ data }, { status: SuccessCode.OK })
+
+        return NextResponse.json({ data }, { status: SuccessStatus.OK })
     } catch (error: unknown) {
-        return NextResponse.json({ error }, { status: FailureCode.BAD_REQUEST })
+        return NextResponse.json(
+            { error },
+            { status: FailureStatus.BAD_REQUEST }
+        )
     }
 }
 
@@ -19,13 +23,20 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     try {
         const form: FormData = await request.formData()
         const body: string = JSON.stringify(form)
-        const options: RequestInit = createFetchOptions('POST', JSON_CONTENT_HEADER, body)
+        const options: RequestInit = createFetchOptions(
+            'POST',
+            JSON_CONTENT_HEADER,
+            body
+        )
         const response: Response = await fetch('/', options)
         const data: any = await response.json()
-    
-        return NextResponse.json({ data }, { status: SuccessCode.CREATED })
+
+        return NextResponse.json({ data }, { status: SuccessStatus.CREATED })
     } catch (error: unknown) {
-        return NextResponse.json({ error }, { status: FailureCode.BAD_REQUEST })
+        return NextResponse.json(
+            { error },
+            { status: FailureStatus.BAD_REQUEST }
+        )
     }
 }
 
@@ -33,13 +44,20 @@ export async function PUT(request: NextRequest): Promise<NextResponse> {
     try {
         const form: FormData = await request.formData()
         const body: string = JSON.stringify(form)
-        const options: RequestInit = createFetchOptions('PUT', JSON_CONTENT_HEADER, body)
+        const options: RequestInit = createFetchOptions(
+            'PUT',
+            JSON_CONTENT_HEADER,
+            body
+        )
         const response: Response = await fetch('/', options)
         const data: any = await response.json()
-    
-        return NextResponse.json({ data }, { status: SuccessCode.OK })
+
+        return NextResponse.json({ data }, { status: SuccessStatus.OK })
     } catch (error: unknown) {
-        return NextResponse.json({ error }, { status: FailureCode.BAD_REQUEST })
+        return NextResponse.json(
+            { error },
+            { status: FailureStatus.BAD_REQUEST }
+        )
     }
 }
 
@@ -47,23 +65,34 @@ export async function PATCH(request: NextRequest): Promise<NextResponse> {
     try {
         const form: FormData = await request.formData()
         const body: string = JSON.stringify(form)
-        const options: RequestInit = createFetchOptions('PATCH', JSON_CONTENT_HEADER, body)
+        const options: RequestInit = createFetchOptions(
+            'PATCH',
+            JSON_CONTENT_HEADER,
+            body
+        )
         const response: Response = await fetch('/', options)
         const data: any = await response.json()
-    
-        return NextResponse.json({ data }, { status: SuccessCode.OK })
+
+        return NextResponse.json({ data }, { status: SuccessStatus.OK })
     } catch (error: unknown) {
-        return NextResponse.json({ error }, { status: FailureCode.BAD_REQUEST })
+        return NextResponse.json(
+            { error },
+            { status: FailureStatus.BAD_REQUEST }
+        )
     }
 }
 
 export async function DELETE(request: NextRequest): Promise<NextResponse> {
     try {
+        const url: string = request.nextUrl.toString()
         const options: RequestInit = createFetchOptions('DELETE')
-        await fetch('/', options)
-    
-        return NextResponse.json({ status: SuccessCode.DELETED })
+        await fetch(url, options)
+
+        return NextResponse.json({ status: SuccessStatus.DELETED })
     } catch (error: unknown) {
-        return NextResponse.json({ error }, { status: FailureCode.BAD_REQUEST })
+        return NextResponse.json(
+            { error },
+            { status: FailureStatus.BAD_REQUEST }
+        )
     }
 }
