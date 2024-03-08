@@ -20,8 +20,5 @@ function check_for_path() {
 function ensure_directories_exist() {
     local directory_path="$1"
 
-    # final_path=$(echo "$directory_path" | sed 's/\/\/\//\//')
-    final_path="$directory_path"
-
-    mkdir -p "\"$final_path\""
+    mkdir -p "$directory_path"
 }
