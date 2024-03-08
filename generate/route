@@ -32,7 +32,7 @@ if [ "$CORE_PATH" != "/" ]; then
     DESTINATION_DIR+="/$CORE_PATH"
 fi
 
-if [ "$DYNAMIC_FLAG" = true ]; then
+if [ "$DYNAMIC_FLAG" == true ]; then
     FOLDER_NAME="[$FOLDER_NAME]"
 fi
 
@@ -50,10 +50,17 @@ done
 
 cd "$cd_list"
 
-CORE_CONTENT=$(determine_content_for_core "$CONTENT_TYPE" "$CONTENT_TYPE")
-TEST_CONTENT=$(determine_content_for_test "$CONTENT_TYPE" "$CONTENT_TYPE" "$CONTENT_TYPE")
-final_content="$CORE_CONTENT"
+if [ "$GET_FLAG" != true ] && [ "$POST_FLAG" != true ] && [ "$PUT_FLAG" != true ] && [ "$PATCH_FLAG" != true ] && [ "$DELETE_FLAG" != true ]; then
+    export GET_FLAG=true
+    export POST_FLAG=true
+    export PUT_FLAG=true
+    export PATCH_FLAG=true
+    export DELETE_FLAG=true
+fi
 
-create_file "$final_content" "$CONTENT_TYPE" "$DESTINATION_DIR" "$EXTENSION" "false"
+CORE_CONTENT=$(create_route_core "$GET_FLAG" "$POST_FLAG" "$PUT_FLAG" "$PATCH_FLAG" "$DELETE_FLAG")
+TEST_CONTENT=$(create_route_test "$MAIN_NAME" "$GET_FLAG" "$POST_FLAG" "$PUT_FLAG" "$PATCH_FLAG" "$DELETE_FLAG")
+
+create_file "$CORE_CONTENT" "$CONTENT_TYPE" "$DESTINATION_DIR" "$EXTENSION" "false"
 create_file "$TEST_CONTENT" "$CONTENT_TYPE" "$DESTINATION_DIR" "$EXTENSION" "true"
 confirm_entity_created "$MAIN_NAME" "$CONTENT_TYPE"

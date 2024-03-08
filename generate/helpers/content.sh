@@ -7,6 +7,8 @@ METADATA_IMPORT="import { Metadata } from 'next'"
 SERVICE_ERROR_IMPORT="import { ServiceError } from '@/data/errors'"
 FETCH_IMPORT="import { createFetchOptions } from '@/utilities/create-fetch-options'"
 JSON_IMPORT="import { JSON_CONTENT_HEADER } from '@/data/constants'"
+REQ_RES_IMPORT="import { NextRequest, NextResponse } from 'next/server'"
+STATUSES_IMPORT="import { SuccessStatus, FailureStatus } from '@/data/enums'"
 
 function use_content_from_template() {
     local main_name="$1"
@@ -43,6 +45,25 @@ function determine_content_for_test() {
     local content_type="$3"
 
     content=$(sed -e "s/{{MAIN_NAME}}/$main_name/g" -e "s/{{FILE_NAME}}/$file_name/g" "$TEMPLATE_DIR/tests/$content_type")
+
+    echo "$content"
+}
+
+function use_content_for_route_handler() {
+    local method_name="$1"
+    local content_type="route-handler"
+
+    content=$(sed "s/{{METHOD_NAME}}/$method_name/g" "$TEMPLATE_DIR/partials/$content_type")
+
+    echo "$content"
+}
+
+function use_content_for_route_test() {
+    local main_name="$1"
+    local method_name="$2"
+    local content_type="route-test"
+
+    content=$(sed -e "s/{{MAIN_NAME}}/$main_name/g" -e "s/{{METHOD_NAME}}/$method_name/g" "$TEMPLATE_DIR/partials/$content_type")
 
     echo "$content"
 }
@@ -94,7 +115,7 @@ function inject_call_into_service() {
     local after_try=$(echo "$service_content" | awk 'NR>2 {print}')
     local final_content=""
 
-    if [ "$is_fetch" = "true" ]; then
+    if [ "$is_fetch" == "true" ]; then
         fetch_call=$(use_content_from_template "" "fetch-call" "partials")
         final_content+="$SERVICE_ERROR_IMPORT"$'\n'
         final_content+="$FETCH_IMPORT"$'\n\n'
@@ -119,7 +140,7 @@ function create_layout() {
     local layout_content=$(use_content_from_template "$main_name" "layout")
     local final_content=""
 
-    if [ "$has_metadata" = "true" ]; then
+    if [ "$has_metadata" == "true" ]; then
         metadata_content=$(use_content_from_template "$main_name" "metadata" "partials")
         final_content+="$METADATA_IMPORT"$'\n'
         final_content+="$COMPONENT_IMPORT"$'\n'
@@ -131,6 +152,87 @@ function create_layout() {
         final_content+="$REACT_CHILDREN_IMPORT"$'\n\n'
         final_content+="$layout_content"
     fi
+
+    echo "$final_content"
+}
+
+function create_route_core() {
+    local has_get="$1"
+    local has_post="$2"
+    local has_put="$3"
+    local has_patch="$4"
+    local has_delete="$5"
+    final_content="$REQ_RES_IMPORT"$'\n'
+    final_content+="$STATUSES_IMPORT"
+
+    if [ "$has_get" == "true" ]; then
+        get_content=$(use_content_for_route_handler "GET")
+        final_content+=$'\n\n'"$get_content"
+    fi
+
+    if [ "$has_post" == "true" ]; then
+        post_content=$(use_content_for_route_handler "POST")
+        final_content+=$'\n\n'"$post_content"
+    fi
+
+    if [ "$has_put" == "true" ]; then
+        put_content=$(use_content_for_route_handler "PUT")
+        final_content+=$'\n\n'"$put_content"
+    fi
+
+    if [ "$has_patch" == "true" ]; then
+        patch_content=$(use_content_for_route_handler "PATCH")
+        final_content+=$'\n\n'"$patch_content"
+    fi
+
+    if [ "$has_delete" == "true" ]; then
+        delete_content=$(use_content_for_route_handler "DELETE")
+        final_content+=$'\n\n'"$delete_content"
+    fi
+
+    echo "$final_content"
+}
+
+function create_route_test() {
+    local main_name="$1"
+    local has_get="$2"
+    local has_post="$3"
+    local has_put="$4"
+    local has_patch="$5"
+    local has_delete="$6"
+    final_content="import { } from './route'"
+
+    if [ "$has_get" == "true" ]; then
+        get_content=$(use_content_for_route_test "$main_name" "GET")
+        final_content+=$'\n\n'"$get_content"
+        final_content=$(echo "$final_content" | sed '1 s/}/GET, }/')
+    fi
+
+    if [ "$has_post" == "true" ]; then
+        post_content=$(use_content_for_route_test "$main_name" "POST")
+        final_content+=$'\n\n'"$post_content"
+        final_content=$(echo "$final_content" | sed '1 s/}/POST, }/')
+    fi
+
+    if [ "$has_put" == "true" ]; then
+        put_content=$(use_content_for_route_test "$main_name" "PUT")
+        final_content+=$'\n\n'"$put_content"
+        final_content=$(echo "$final_content" | sed '1 s/}/PUT, }/')
+    fi
+
+    if [ "$has_patch" == "true" ]; then
+        patch_content=$(use_content_for_route_test "$main_name" "PATCH")
+        final_content+=$'\n\n'"$patch_content"
+        final_content=$(echo "$final_content" | sed '1 s/}/PATCH, }/')
+    fi
+
+    if [ "$has_delete" == "true" ]; then
+        delete_content=$(use_content_for_route_test "$main_name" "DELETE")
+        final_content+=$'\n\n'"$delete_content"
+        final_content=$(echo "$final_content" | sed '1 s/}/DELETE, }/')
+    fi
+
+    final_content=$(echo "$final_content" | sed '1 s/, }/ }/')
 
     echo "$final_content"
 }

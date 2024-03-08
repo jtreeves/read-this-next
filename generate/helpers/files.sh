@@ -8,7 +8,7 @@ function create_file() {
     local is_test="$5"
     local full_file_path="$directory/$file_name"
 
-    if [ "$is_test" = "true" ]; then
+    if [ "$is_test" == "true" ]; then
         full_file_path+=".test"
     fi
 
