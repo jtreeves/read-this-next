@@ -1,9 +1,12 @@
 // NEW BASE CLASS
 
+import { FailureStatus } from './enums'
+
 export class CustomError extends Error {
     cause: Error
+    status?: FailureStatus
 
-    constructor(cause: unknown) {
+    constructor(cause: unknown, status?: FailureStatus) {
         super()
 
         this.name = 'CustomError'
@@ -12,6 +15,12 @@ export class CustomError extends Error {
             this.cause = cause
         } else {
             this.cause = new Error()
+        }
+
+        if (status) {
+            this.status = status
+        } else if (cause instanceof CustomError && cause.status) {
+            this.status = cause.status
         }
     }
 
@@ -22,7 +31,7 @@ export class CustomError extends Error {
     }
 }
 
-// SOPHISTICATED EXTENSIONS OF NEW BASE CLASS
+// EXTENSIONS OF NEW BASE CLASS WITH ARGUMENTS
 
 export class ApiError extends CustomError {
     api: string
@@ -82,7 +91,7 @@ export class ServiceError extends CustomError {
     }
 }
 
-// SIMPLE EXTENSIONS OF NEW BASE CLASS
+// EXTENSIONS OF NEW BASE CLASS WITHOUT ARGUMENTS
 
 export class FetchError extends CustomError {
     constructor() {
@@ -93,19 +102,11 @@ export class FetchError extends CustomError {
     }
 }
 
-// AUTH EXTENSIONS OF NEW BASE CLASS
+// ERRORS WITH STATUS CODES
 
-export class AuthError extends CustomError {
+export class AuthenticationError extends CustomError {
     constructor(cause: unknown) {
-        super(cause)
-
-        this.name = 'AuthError'
-    }
-}
-
-export class AuthenticationError extends AuthError {
-    constructor(cause: unknown) {
-        super(cause)
+        super(cause, FailureStatus.UNAUTHORIZED)
 
         this.name = 'AuthenticationError'
         this.message = 'User has not been authenticated'
@@ -114,12 +115,35 @@ export class AuthenticationError extends AuthError {
     }
 }
 
-export class AuthorizationError extends AuthError {
+export class AuthorizationError extends CustomError {
     constructor(cause: unknown) {
-        super(cause)
+        super(cause, FailureStatus.FORBIDDEN)
 
         this.name = 'AuthorizationError'
         this.message = 'User is not authorized to view this resource'
+
+        this.appendCauseMessage()
+    }
+}
+
+export class NotFoundError extends CustomError {
+    constructor(cause: unknown) {
+        super(cause, FailureStatus.NOT_FOUND)
+
+        this.name = 'NotFoundError'
+        this.message = 'Requested resource could not be found'
+
+        this.appendCauseMessage()
+    }
+}
+
+export class ServerError extends CustomError {
+    constructor(cause: unknown) {
+        super(cause, FailureStatus.SERVER_ERROR)
+
+        this.name = 'ServerError'
+        this.message =
+            'Server encountered an unexpected condition that prevented it from completing the request'
 
         this.appendCauseMessage()
     }

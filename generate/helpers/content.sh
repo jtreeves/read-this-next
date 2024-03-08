@@ -9,6 +9,7 @@ FETCH_IMPORT="import { createFetchOptions } from '@/utilities/create-fetch-optio
 JSON_IMPORT="import { JSON_CONTENT_HEADER } from '@/data/constants'"
 REQ_RES_IMPORT="import { NextRequest, NextResponse } from 'next/server'"
 STATUSES_IMPORT="import { SuccessStatus, FailureStatus } from '@/data/enums'"
+ERRORS_IMPORT="import { CustomError } from '@/data/errors'"
 
 function use_content_from_template() {
     local main_name="$1"
@@ -163,7 +164,8 @@ function create_route_core() {
     local has_patch="$4"
     local has_delete="$5"
     final_content="$REQ_RES_IMPORT"$'\n'
-    final_content+="$STATUSES_IMPORT"
+    final_content+="$STATUSES_IMPORT"$'\n'
+    final_content+="$ERRORS_IMPORT"
 
     if [ "$has_get" == "true" ]; then
         get_content=$(use_content_for_route_handler "GET")
@@ -172,6 +174,7 @@ function create_route_core() {
 
     if [ "$has_post" == "true" ]; then
         post_content=$(use_content_for_route_handler "POST")
+        post_content=$(echo "$post_content" | sed 's/OK/CREATED/')
         final_content+=$'\n\n'"$post_content"
     fi
 
@@ -187,6 +190,9 @@ function create_route_core() {
 
     if [ "$has_delete" == "true" ]; then
         delete_content=$(use_content_for_route_handler "DELETE")
+        delete_content=$(echo "$delete_content" | sed 's/OK/DELETED/')
+        delete_content=$(echo "$delete_content" | sed 's/{ data }, {/{/')
+        delete_content=$(echo "$delete_content" | sed 's/const data: any = await/await/')
         final_content+=$'\n\n'"$delete_content"
     fi
 

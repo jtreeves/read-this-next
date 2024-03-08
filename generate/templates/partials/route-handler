@@ -2,11 +2,16 @@ export async function {{METHOD_NAME}}(request: NextRequest): Promise<NextRespons
     try {
         const data: any = await request.json()
 
-        return NextResponse.json({ data }, { status: SuccessStatus.CREATED })
+        return NextResponse.json({ data }, { status: SuccessStatus.OK })
     } catch (error: unknown) {
-        return NextResponse.json(
-            { error },
-            { status: FailureStatus.BAD_REQUEST }
-        )
+        let status: FailureStatus
+
+        if (error instanceof CustomError && error.status) {
+            status = error.status
+        } else {
+            status = FailureStatus.BAD_REQUEST
+        }
+
+        return NextResponse.json({ error }, { status })
     }
 }

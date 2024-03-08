@@ -8,6 +8,7 @@ function check_for_name() {
         exit 1
     fi
 }
+
 function check_for_path() {
     local path="$1"
 
