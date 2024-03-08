@@ -1,0 +1,10 @@
+        const options: RequestInit = createFetchOptions()
+        const response: Response = await fetch('/', options)
+
+        if (response.ok) {
+            const result: any = await response.json()
+
+            return result
+        } else {
+            throw new FetchError()
+        }

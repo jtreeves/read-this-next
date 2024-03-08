@@ -1,0 +1,12 @@
+export async function {{METHOD_NAME}}(request: NextRequest): Promise<NextResponse> {
+    try {
+        const data: any = await request.json()
+
+        return NextResponse.json({ data }, { status: SuccessStatus.CREATED })
+    } catch (error: unknown) {
+        return NextResponse.json(
+            { error },
+            { status: FailureStatus.BAD_REQUEST }
+        )
+    }
+}

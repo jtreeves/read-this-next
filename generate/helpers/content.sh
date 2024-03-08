@@ -4,6 +4,9 @@ TEMPLATE_DIR="generate/templates"
 COMPONENT_IMPORT="import { Component } from '@/data/types'"
 REACT_CHILDREN_IMPORT="import { ReactChildren } from '@/data/interfaces'"
 METADATA_IMPORT="import { Metadata } from 'next'"
+SERVICE_ERROR_IMPORT="import { ServiceError } from '@/data/errors'"
+FETCH_IMPORT="import { createFetchOptions } from '@/utilities/create-fetch-options'"
+JSON_IMPORT="import { JSON_CONTENT_HEADER } from '@/data/constants'"
 
 function use_content_from_template() {
     local main_name="$1"
@@ -82,6 +85,32 @@ function adjust_content_for_page_test() {
     page_test=$(echo "$page_test" | sed 's/ \/>/Page \/>/')
 
     echo "$page_test"
+}
+
+function inject_call_into_service() {
+    local service_content="$1"
+    local is_fetch="$2"
+    local up_to_try=$(echo "$service_content" | awk 'NR<=2 {print}')
+    local after_try=$(echo "$service_content" | awk 'NR>2 {print}')
+    local final_content=""
+
+    if [ "$is_fetch" = "true" ]; then
+        fetch_call=$(use_content_from_template "" "fetch-call" "partials")
+        final_content+="$SERVICE_ERROR_IMPORT"$'\n'
+        final_content+="$FETCH_IMPORT"$'\n\n'
+        final_content+="$up_to_try"$'\n'
+        final_content+="$fetch_call"$'\n'
+        final_content+="$after_try"
+        final_content=$(echo "$final_content" | sed 's/{ ServiceError }/{ ServiceError, FetchError }/')
+    else
+        default_call=$(use_content_from_template "" "default-call" "partials")
+        final_content+="$SERVICE_ERROR_IMPORT"$'\n\n'
+        final_content+="$up_to_try"$'\n'
+        final_content+="$default_call"$'\n'
+        final_content+="$after_try"
+    fi
+
+    echo "$final_content"
 }
 
 function create_layout() {

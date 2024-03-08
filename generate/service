@@ -21,10 +21,10 @@ process_flags "$@"
 MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
 TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
-final_content="$CORE_CONTENT"
+final_content=$(inject_call_into_service "$CORE_CONTENT" "$FETCH_FLAG")
 
 if [ "$SERVER_FLAG" = true ]; then
-    final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$CORE_CONTENT")
+    final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$final_content")
 fi
 
 create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
