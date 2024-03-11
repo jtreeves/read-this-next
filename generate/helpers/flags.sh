@@ -9,16 +9,16 @@ function process_flags() {
         -c | --client)
             export CLIENT_FLAG=true
             ;;
-        -dy | -dyn | --dynamic)
+        -dy | --dynamic)
             export DYNAMIC_FLAG=true
             ;;
-        -de | -del | --delete)
+        -de | --delete)
             export DELETE_FLAG=true
             ;;
-        -e | -err | --error)
+        -e | --error)
             export ERROR_FLAG=true
             ;;
-        -f | -ftc | --fetch)
+        -f | --fetch)
             export FETCH_FLAG=true
             ;;
         -g | --get)
@@ -30,10 +30,10 @@ function process_flags() {
         -m | --meta)
             export META_FLAG=true
             ;;
-        -n | -nf | --non-found)
+        -nf | --non-found)
             export NOT_FOUND_FLAG=true
             ;;
-        -pa | -pat | --patch)
+        -pa | --patch)
             export PATCH_FLAG=true
             ;;
         -po | --post)
