@@ -1,7 +1,7 @@
+import { ReactElement } from 'react'
 import Link from 'next/link'
-import { Component } from '@/data/types'
 
-export default function RootNotFound(): Component {
+export default function RootNotFound(): ReactElement {
     return (
         <div>
             <h2>Not Found</h2>

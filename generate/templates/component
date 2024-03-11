@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export function {{MAIN_NAME}}(): Component {
+export function {{MAIN_NAME}}(): ReactElement {
     return <>{{MAIN_NAME}}</>
 }

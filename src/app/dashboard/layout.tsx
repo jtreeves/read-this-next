@@ -1,5 +1,5 @@
+import { ReactElement } from 'react'
 import { Metadata } from 'next'
-import { Component } from '@/data/types'
 import { ReactChildren } from '@/data/interfaces'
 
 export const metadata: Metadata = {
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 
 export default function DashboardLayout({
     children
-}: ReactChildren): Component {
+}: ReactChildren): ReactElement {
     return <div>{children}</div>
 }

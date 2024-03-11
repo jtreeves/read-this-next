@@ -1,7 +1,7 @@
+import { ReactElement } from 'react'
 import { Metadata } from 'next'
 import { NextFont } from 'next/dist/compiled/@next/font'
 import { Inter } from 'next/font/google'
-import { Component } from '@/data/types'
 import { ReactChildren } from '@/data/interfaces'
 import './globals.css'
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Book recommendation app'
 }
 
-export default function RootLayout({ children }: ReactChildren): Component {
+export default function RootLayout({ children }: ReactChildren): ReactElement {
     return (
         <html lang='en'>
             <body className={inter.className}>{children}</body>

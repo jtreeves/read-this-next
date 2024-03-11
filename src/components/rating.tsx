@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export function Rating(): Component {
+export function Rating(): ReactElement {
     return <>Rating</>
 }

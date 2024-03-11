@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export default function BrowsePage(): Component {
+export default function BrowsePage(): ReactElement {
     return <>Browse</>
 }

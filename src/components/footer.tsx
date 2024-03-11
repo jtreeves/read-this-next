@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export function Footer(): Component {
+export function Footer(): ReactElement {
     return <>Footer</>
 }

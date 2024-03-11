@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMPLATE_DIR="generate/templates"
-COMPONENT_IMPORT="import { Component } from '@/data/types'"
+COMPONENT_IMPORT="import { ReactElement } from 'react'"
 REACT_CHILDREN_IMPORT="import { ReactChildren } from '@/data/interfaces'"
 METADATA_IMPORT="import { Metadata } from 'next'"
 SERVICE_ERROR_IMPORT="import { ServiceError } from '@/data/errors'"
@@ -143,8 +143,8 @@ function create_layout() {
 
     if [ "$has_metadata" == "true" ]; then
         metadata_content=$(use_content_from_template "$main_name" "metadata" "partials")
-        final_content+="$METADATA_IMPORT"$'\n'
         final_content+="$COMPONENT_IMPORT"$'\n'
+        final_content+="$METADATA_IMPORT"$'\n'
         final_content+="$REACT_CHILDREN_IMPORT"$'\n\n'
         final_content+="$metadata_content"$'\n\n'
         final_content+="$layout_content"

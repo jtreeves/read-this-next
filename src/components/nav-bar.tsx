@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export function NavBar(): Component {
+export function NavBar(): ReactElement {
     return <>NavBar</>
 }

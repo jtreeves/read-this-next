@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export function Button(): Component {
+export function Button(): ReactElement {
     return <>Button</>
 }
