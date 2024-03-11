@@ -18,9 +18,9 @@ DESTINATION_DIR="$SRC_DIR/$APP_DIR"
 check_for_name "$GROUP"
 check_for_path "$CORE_PATH"
 
-updated_directories=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
-DESTINATION_DIR="${updated_directories[0]}"
-DIRECTORIES=("${updated_directories[@]:1}")
+UPDATED_DIRECTORIES=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
+DESTINATION_DIR="${UPDATED_DIRECTORIES[0]}"
+DIRECTORIES=("${UPDATED_DIRECTORIES[@]:1}")
 DIRECTORIES+=("($GROUP)")
 
 ensure_directories_exist "${DIRECTORIES[@]}"

@@ -24,9 +24,9 @@ process_flags "$@"
 check_for_name "$MAIN_NAME"
 check_for_path "$CORE_PATH"
 
-updated_directories=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
-DESTINATION_DIR="${updated_directories[0]}"
-DIRECTORIES=("${updated_directories[@]:1}")
+UPDATED_DIRECTORIES=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
+DESTINATION_DIR="${UPDATED_DIRECTORIES[0]}"
+DIRECTORIES=("${UPDATED_DIRECTORIES[@]:1}")
 
 if [ "$DYNAMIC_FLAG" == true ]; then
     FOLDER_NAME="[$FOLDER_NAME]"

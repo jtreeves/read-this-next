@@ -24,9 +24,9 @@ process_flags "$@"
 check_for_name "$FOLDER_NAME"
 check_for_path "$CORE_PATH"
 
-updated_directories=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
-DESTINATION_DIR="${updated_directories[0]}"
-DIRECTORIES=("${updated_directories[@]:1}")
+UPDATED_DIRECTORIES=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
+DESTINATION_DIR="${UPDATED_DIRECTORIES[0]}"
+DIRECTORIES=("${UPDATED_DIRECTORIES[@]:1}")
 
 if [ "$DYNAMIC_FLAG" == true ]; then
     FOLDER_NAME="[$FOLDER_NAME]"
@@ -57,18 +57,18 @@ if [ "$CLIENT_FLAG" == true ]; then
 fi
 
 if [ "$LOADING_FLAG" == true ]; then
-    loading_content=$(determine_content_for_core "$MAIN_NAME" "loading")
-    create_file "$loading_content" "loading" "$DESTINATION_DIR" "$EXTENSION" "false"
+    LOADING_CONTENT=$(determine_content_for_core "$MAIN_NAME" "loading")
+    create_file "$LOADING_CONTENT" "loading" "$DESTINATION_DIR" "$EXTENSION" "false"
 fi
 
 if [ "$ERROR_FLAG" == true ]; then
-    error_content=$(determine_content_for_core "$MAIN_NAME" "error")
-    create_file "$error_content" "error" "$DESTINATION_DIR" "$EXTENSION" "false"
+    ERROR_CONTENT=$(determine_content_for_core "$MAIN_NAME" "error")
+    create_file "$ERROR_CONTENT" "error" "$DESTINATION_DIR" "$EXTENSION" "false"
 fi
 
 if [ "$NOT_FOUND_FLAG" == true ]; then
-    not_found_content=$(determine_content_for_core "$MAIN_NAME" "not-found")
-    create_file "$not_found_content" "not-found" "$DESTINATION_DIR" "$EXTENSION" "false"
+    NOT_FOUND_CONTENT=$(determine_content_for_core "$MAIN_NAME" "not-found")
+    create_file "$NOT_FOUND_CONTENT" "not-found" "$DESTINATION_DIR" "$EXTENSION" "false"
 fi
 
 if [ "$META_FLAG" == true ]; then
