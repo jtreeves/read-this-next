@@ -126,12 +126,12 @@ generate/route {BASE_PATH} {ROUTE_NAME}
 
 | Option      | Alias | Description                                    | Type      | Default |
 | :---------- | :---- | :--------------------------------------------- | :-------- | :------ |
-| `--delete`  | `-de` | Adds a `DELETE` handler to the route           | `boolean` | `false` |
+| `--delete`  | `-de` | Adds a `DELETE` handler to the route           | `boolean` | `true`  |
 | `--dynamic` | `-dy` | Makes the route dynamic (i.e., using brackets) | `boolean` | `false` |
-| `--get`     | `-g`  | Adds a `GET` handler to the route              | `boolean` | `false` |
-| `--patch`   | `-pa` | Adds a `PATCH` handler to the route            | `boolean` | `false` |
-| `--post`    | `-po` | Adds a `POST` handler to the route             | `boolean` | `false` |
-| `--put`     | `-pu` | Adds a `PUT` handler to the route              | `boolean` | `false` |
+| `--get`     | `-g`  | Adds a `GET` handler to the route              | `boolean` | `true`  |
+| `--patch`   | `-pa` | Adds a `PATCH` handler to the route            | `boolean` | `true`  |
+| `--post`    | `-po` | Adds a `POST` handler to the route             | `boolean` | `true`  |
+| `--put`     | `-pu` | Adds a `PUT` handler to the route              | `boolean` | `true`  |
 
 ### Example
 
