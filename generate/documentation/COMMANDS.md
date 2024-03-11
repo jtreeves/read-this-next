@@ -33,6 +33,45 @@ generate/component foo-bar -c
 -   ensures component its attendant test suite are stored in the appropriate file path (`src/components`) as files in kebab-case with the necessary extensions (`foo-bar.tsx` and `foo-bar.test.tsx`, respectively)
 -   since the client flag was provided, that means this component will be a _client_ component instead of the default _server_ component; as a result, the `'use client'` directive will appear at the top of the component's file
 
+## `group`
+
+Creates a new React component file, along with a corresponding test suite, in the `src/components` folder based on the name provided by the `{COMPONENT_NAME}` variable.
+
+```bash
+generate/page {BASE_PATH} {MAIN_FOLDER}
+```
+
+### Required Arguments
+
+| Argument        | Description                                 | Type     | Example   |
+| :-------------- | :------------------------------------------ | :------- | :-------- |
+| `{BASE_PATH}`   | File name of React component, in kebab-case | `string` | `nav-bar` |
+| `{MAIN_FOLDER}` | File name of React component, in kebab-case | `string` | `nav-bar` |
+
+### Optional Flags
+
+| Option        | Alias | Description                                  | Type      | Default |
+| :------------ | :---- | :------------------------------------------- | :-------- | :------ |
+| `--async`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--client`    | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--dynamic`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--error`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--loading`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--meta`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--not-found` | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--slot`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+
+### Full Example Including Notes about Results
+
+```bash
+generate/page foo bar -d -a -m -e -l
+```
+
+-   creates a `FooBar` React component
+-   creates a test suite to exercise the `FooBar` React component
+-   ensures component its attendant test suite are stored in the appropriate file path (`src/components`) as files in kebab-case with the necessary extensions (`foo-bar.tsx` and `foo-bar.test.tsx`, respectively)
+-   since the client flag was provided, that means this component will be a _client_ component instead of the default _server_ component; as a result, the `'use client'` directive will appear at the top of the component's file
+
 ## `page`
 
 Creates a new React component file, along with a corresponding test suite, in the `src/components` folder based on the name provided by the `{COMPONENT_NAME}` variable.
@@ -74,6 +113,117 @@ generate/page foo bar -d -a -m -e -l
 
 ## `route`
 
+Creates a new React component file, along with a corresponding test suite, in the `src/components` folder based on the name provided by the `{COMPONENT_NAME}` variable.
+
+```bash
+generate/page {BASE_PATH} {MAIN_FOLDER}
+```
+
+### Required Arguments
+
+| Argument        | Description                                 | Type     | Example   |
+| :-------------- | :------------------------------------------ | :------- | :-------- |
+| `{BASE_PATH}`   | File name of React component, in kebab-case | `string` | `nav-bar` |
+| `{MAIN_FOLDER}` | File name of React component, in kebab-case | `string` | `nav-bar` |
+
+### Optional Flags
+
+| Option        | Alias | Description                                  | Type      | Default |
+| :------------ | :---- | :------------------------------------------- | :-------- | :------ |
+| `--async`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--client`    | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--dynamic`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--error`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--loading`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--meta`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--not-found` | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--slot`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+
+### Full Example Including Notes about Results
+
+```bash
+generate/page foo bar -d -a -m -e -l
+```
+
+-   creates a `FooBar` React component
+-   creates a test suite to exercise the `FooBar` React component
+-   ensures component its attendant test suite are stored in the appropriate file path (`src/components`) as files in kebab-case with the necessary extensions (`foo-bar.tsx` and `foo-bar.test.tsx`, respectively)
+-   since the client flag was provided, that means this component will be a _client_ component instead of the default _server_ component; as a result, the `'use client'` directive will appear at the top of the component's file
+
 ## `service`
 
+Creates a new React component file, along with a corresponding test suite, in the `src/components` folder based on the name provided by the `{COMPONENT_NAME}` variable.
+
+```bash
+generate/page {BASE_PATH} {MAIN_FOLDER}
+```
+
+### Required Arguments
+
+| Argument        | Description                                 | Type     | Example   |
+| :-------------- | :------------------------------------------ | :------- | :-------- |
+| `{BASE_PATH}`   | File name of React component, in kebab-case | `string` | `nav-bar` |
+| `{MAIN_FOLDER}` | File name of React component, in kebab-case | `string` | `nav-bar` |
+
+### Optional Flags
+
+| Option        | Alias | Description                                  | Type      | Default |
+| :------------ | :---- | :------------------------------------------- | :-------- | :------ |
+| `--async`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--client`    | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--dynamic`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--error`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--loading`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--meta`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--not-found` | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--slot`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+
+### Full Example Including Notes about Results
+
+```bash
+generate/page foo bar -d -a -m -e -l
+```
+
+-   creates a `FooBar` React component
+-   creates a test suite to exercise the `FooBar` React component
+-   ensures component its attendant test suite are stored in the appropriate file path (`src/components`) as files in kebab-case with the necessary extensions (`foo-bar.tsx` and `foo-bar.test.tsx`, respectively)
+-   since the client flag was provided, that means this component will be a _client_ component instead of the default _server_ component; as a result, the `'use client'` directive will appear at the top of the component's file
+
 ## `utility`
+
+Creates a new React component file, along with a corresponding test suite, in the `src/components` folder based on the name provided by the `{COMPONENT_NAME}` variable.
+
+```bash
+generate/page {BASE_PATH} {MAIN_FOLDER}
+```
+
+### Required Arguments
+
+| Argument        | Description                                 | Type     | Example   |
+| :-------------- | :------------------------------------------ | :------- | :-------- |
+| `{BASE_PATH}`   | File name of React component, in kebab-case | `string` | `nav-bar` |
+| `{MAIN_FOLDER}` | File name of React component, in kebab-case | `string` | `nav-bar` |
+
+### Optional Flags
+
+| Option        | Alias | Description                                  | Type      | Default |
+| :------------ | :---- | :------------------------------------------- | :-------- | :------ |
+| `--async`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--client`    | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--dynamic`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--error`     | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--loading`   | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--meta`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--not-found` | `-c`  | Makes the React component a client component | `boolean` | `false` |
+| `--slot`      | `-c`  | Makes the React component a client component | `boolean` | `false` |
+
+### Full Example Including Notes about Results
+
+```bash
+generate/page foo bar -d -a -m -e -l
+```
+
+-   creates a `FooBar` React component
+-   creates a test suite to exercise the `FooBar` React component
+-   ensures component its attendant test suite are stored in the appropriate file path (`src/components`) as files in kebab-case with the necessary extensions (`foo-bar.tsx` and `foo-bar.test.tsx`, respectively)
+-   since the client flag was provided, that means this component will be a _client_ component instead of the default _server_ component; as a result, the `'use client'` directive will appear at the top of the component's file
