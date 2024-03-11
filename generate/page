@@ -21,6 +21,7 @@ DESTINATION_DIR="$SRC_DIR/$APP_DIR"
 
 process_flags "$@"
 check_for_name "$FOLDER_NAME"
+check_for_path "$CORE_PATH"
 
 MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 
@@ -43,19 +44,8 @@ fi
 
 DIRECTORIES+=("$FOLDER_NAME")
 DESTINATION_DIR+="/$FOLDER_NAME"
-cd_list=""
 
-for i in "${DIRECTORIES[@]}"; do
-    mkdir -p "$i"
-    if [ -d "$i" ]; then
-        cd "$i"
-        cd_list="../$cd_list"
-    fi
-done
-
-cd "$cd_list"
-
-check_for_path "$CORE_PATH"
+ensure_directories_exist "${DIRECTORIES[@]}"
 
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
 TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")

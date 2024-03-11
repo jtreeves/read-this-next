@@ -7,16 +7,19 @@ source generate/helpers/content.sh
 source generate/helpers/files.sh
 source generate/helpers/feedback.sh
 
-FILE_NAME=$1
+FILE_NAME="$1"
 CONTENT_TYPE="service"
+SRC_DIR="src"
+SERVICES_DIR="services"
 TEMPLATE_DIR="generate/templates"
-DESTINATION_DIR="src/services"
+DIRECTORIES=("$SRC_DIR" "$SERVICES_DIR")
+DESTINATION_DIR="$SRC_DIR/$SERVICES_DIR"
 INTRO_DIRECTIVE="use server"
 EXTENSION="ts"
 
-check_for_name "$FILE_NAME"
-ensure_directories_exist "$DESTINATION_DIR"
 process_flags "$@"
+check_for_name "$FILE_NAME"
+ensure_directories_exist "${DIRECTORIES[@]}"
 
 MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")

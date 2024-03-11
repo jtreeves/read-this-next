@@ -13,6 +13,9 @@ SRC_DIR="src"
 APP_DIR="app"
 DIRECTORIES=("$SRC_DIR" "$APP_DIR")
 
+check_for_name "$GROUP"
+check_for_path "$CORE_PATH"
+
 if [ "$CORE_PATH" != "/" ]; then
     IFS="/"
     read -ra PATH_DIRS <<<"$CORE_PATH"
@@ -22,16 +25,6 @@ if [ "$CORE_PATH" != "/" ]; then
 fi
 
 DIRECTORIES+=("($GROUP)")
-cd_list=""
 
-for i in "${DIRECTORIES[@]}"; do
-    mkdir -p "$i"
-    if [ -d "$i" ]; then
-        cd "$i"
-        cd_list="../$cd_list"
-    fi
-done
-
-cd "$cd_list"
-
+ensure_directories_exist "${DIRECTORIES[@]}"
 confirm_entity_created "$GROUP" "group"

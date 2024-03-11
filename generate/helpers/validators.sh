@@ -1,10 +1,10 @@
 #!/bin/bash
 
 function check_for_name() {
-    local file_name="$1"
+    local base_name="$1"
 
-    if [ -z "$file_name" ]; then
-        echo "Error: You must provide a file name"
+    if [ -z "$base_name" ]; then
+        echo "Error: You must provide a base name"
         exit 1
     fi
 }
@@ -19,7 +19,16 @@ function check_for_path() {
 }
 
 function ensure_directories_exist() {
-    local directory_path="$1"
+    local directories=("$@")
+    local cd_list=""
 
-    mkdir -p "$directory_path"
+    for i in "${directories[@]}"; do
+        mkdir -p "$i"
+        if [ -d "$i" ]; then
+            cd "$i"
+            cd_list="../$cd_list"
+        fi
+    done
+
+    cd "$cd_list"
 }

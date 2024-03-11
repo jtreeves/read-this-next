@@ -38,17 +38,8 @@ fi
 
 DIRECTORIES+=("$FOLDER_NAME")
 DESTINATION_DIR+="/$FOLDER_NAME"
-cd_list=""
 
-for i in "${DIRECTORIES[@]}"; do
-    mkdir -p "$i"
-    if [ -d "$i" ]; then
-        cd "$i"
-        cd_list="../$cd_list"
-    fi
-done
-
-cd "$cd_list"
+ensure_directories_exist "${DIRECTORIES[@]}"
 
 if [ "$GET_FLAG" != true ] && [ "$POST_FLAG" != true ] && [ "$PUT_FLAG" != true ] && [ "$PATCH_FLAG" != true ] && [ "$DELETE_FLAG" != true ]; then
     export GET_FLAG=true

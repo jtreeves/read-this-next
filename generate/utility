@@ -6,14 +6,17 @@ source generate/helpers/content.sh
 source generate/helpers/files.sh
 source generate/helpers/feedback.sh
 
-FILE_NAME=$1
+FILE_NAME="$1"
 CONTENT_TYPE="utility"
+SRC_DIR="src"
+UTIL_DIR="utilities"
 TEMPLATE_DIR="generate/templates"
-DESTINATION_DIR="src/utilities"
+DIRECTORIES=("$SRC_DIR" "$UTIL_DIR")
+DESTINATION_DIR="$SRC_DIR/$UTIL_DIR"
 EXTENSION="ts"
 
 check_for_name "$FILE_NAME"
-ensure_directories_exist "$DESTINATION_DIR"
+ensure_directories_exist "${DIRECTORIES[@]}"
 
 MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
