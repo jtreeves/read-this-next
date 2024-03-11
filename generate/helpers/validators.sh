@@ -17,18 +17,3 @@ function check_for_path() {
         exit 1
     fi
 }
-
-function ensure_directories_exist() {
-    local directories=("$@")
-    local cd_list=""
-
-    for i in "${directories[@]}"; do
-        mkdir -p "$i"
-        if [ -d "$i" ]; then
-            cd "$i"
-            cd_list="../$cd_list"
-        fi
-    done
-
-    cd "$cd_list"
-}

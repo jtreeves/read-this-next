@@ -4,6 +4,7 @@ source generate/helpers/validators.sh
 source generate/helpers/names.sh
 source generate/helpers/content.sh
 source generate/helpers/files.sh
+source generate/helpers/folders.sh
 source generate/helpers/feedback.sh
 
 FILE_NAME="$1"

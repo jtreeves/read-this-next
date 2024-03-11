@@ -5,6 +5,7 @@ source generate/helpers/names.sh
 source generate/helpers/flags.sh
 source generate/helpers/content.sh
 source generate/helpers/files.sh
+source generate/helpers/folders.sh
 source generate/helpers/feedback.sh
 
 CORE_PATH="$1"
@@ -23,14 +24,9 @@ process_flags "$@"
 check_for_name "$MAIN_NAME"
 check_for_path "$CORE_PATH"
 
-if [ "$CORE_PATH" != "/" ]; then
-    IFS="/"
-    read -ra PATH_DIRS <<<"$CORE_PATH"
-    unset IFS
-
-    DIRECTORIES+=("${PATH_DIRS[@]}")
-    DESTINATION_DIR+="/$CORE_PATH"
-fi
+updated_directories=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
+DESTINATION_DIR="${updated_directories[0]}"
+DIRECTORIES=("${updated_directories[@]:1}")
 
 if [ "$DYNAMIC_FLAG" == true ]; then
     FOLDER_NAME="[$FOLDER_NAME]"
