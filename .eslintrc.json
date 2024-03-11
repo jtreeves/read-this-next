@@ -31,7 +31,6 @@
             "warn",
             { "blankLine": "always", "prev": "block-like", "next": "*" },
             { "blankLine": "always", "prev": "block", "next": "*" },
-            { "blankLine": "always", "prev": "*", "next": "if" },
             { "blankLine": "always", "prev": "*", "next": "try" },
             { "blankLine": "always", "prev": "*", "next": "return" },
             { "blankLine": "always", "prev": "*", "next": "export" }
@@ -62,6 +61,11 @@
             {
                 "selector": "function",
                 "format": ["camelCase", "PascalCase"],
+                "modifiers": ["exported"]
+            },
+            {
+                "selector": "class",
+                "format": ["PascalCase"],
                 "modifiers": ["exported"]
             }
         ],

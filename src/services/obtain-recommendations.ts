@@ -1,7 +1,7 @@
 import { FetchError, ServiceError } from '@/data/errors'
 import { createFetchOptions } from '@/utilities/create-fetch-options'
 
-export async function starBook(): Promise<any> {
+export async function obtainRecommendations(): Promise<any> {
     try {
         const options: RequestInit = createFetchOptions()
         const response: Response = await fetch('/', options)
@@ -14,6 +14,6 @@ export async function starBook(): Promise<any> {
             throw new FetchError()
         }
     } catch (error: unknown) {
-        throw new ServiceError(starBook.name, error)
+        throw new ServiceError(obtainRecommendations.name, error)
     }
 }

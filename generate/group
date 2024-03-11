@@ -1,0 +1,27 @@
+#!/bin/bash
+
+source generate/helpers/validators.sh
+source generate/helpers/names.sh
+source generate/helpers/flags.sh
+source generate/helpers/content.sh
+source generate/helpers/files.sh
+source generate/helpers/folders.sh
+source generate/helpers/feedback.sh
+
+CORE_PATH="$1"
+GROUP="$2"
+SRC_DIR="src"
+APP_DIR="app"
+DIRECTORIES=("$SRC_DIR" "$APP_DIR")
+DESTINATION_DIR="$SRC_DIR/$APP_DIR"
+
+check_for_name "$GROUP"
+check_for_path "$CORE_PATH"
+
+UPDATED_DIRECTORIES=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
+DESTINATION_DIR="${UPDATED_DIRECTORIES[0]}"
+DIRECTORIES=("${UPDATED_DIRECTORIES[@]:1}")
+DIRECTORIES+=("($GROUP)")
+
+ensure_directories_exist "${DIRECTORIES[@]}"
+confirm_entity_created "$GROUP" "group"

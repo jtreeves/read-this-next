@@ -1,0 +1,83 @@
+#!/bin/bash
+
+source generate/helpers/validators.sh
+source generate/helpers/names.sh
+source generate/helpers/flags.sh
+source generate/helpers/content.sh
+source generate/helpers/files.sh
+source generate/helpers/folders.sh
+source generate/helpers/feedback.sh
+
+CORE_PATH="$1"
+FOLDER_NAME="$2"
+SRC_DIR="src"
+APP_DIR="app"
+FILE_NAME="page"
+CONTENT_TYPE="component"
+TEMPLATE_DIR="generate/templates"
+INTRO_DIRECTIVE="use client"
+EXTENSION="tsx"
+DIRECTORIES=("$SRC_DIR" "$APP_DIR")
+DESTINATION_DIR="$SRC_DIR/$APP_DIR"
+
+process_flags "$@"
+check_for_name "$FOLDER_NAME"
+check_for_path "$CORE_PATH"
+
+MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
+UPDATED_DIRECTORIES=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
+DESTINATION_DIR="${UPDATED_DIRECTORIES[0]}"
+DIRECTORIES=("${UPDATED_DIRECTORIES[@]:1}")
+
+if [ "$DYNAMIC_FLAG" == true ]; then
+    FOLDER_NAME="[$FOLDER_NAME]"
+fi
+
+if [ "$SLOT_FLAG" == true ]; then
+    FOLDER_NAME="@$FOLDER_NAME"
+fi
+
+DIRECTORIES+=("$FOLDER_NAME")
+DESTINATION_DIR+="/$FOLDER_NAME"
+
+ensure_directories_exist "${DIRECTORIES[@]}"
+
+CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
+TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
+final_content=$(adjust_content_for_page "$CORE_CONTENT")
+final_test=$(adjust_content_for_page_test "$TEST_CONTENT")
+layout_content=""
+
+if [ "$ASYNC_FLAG" == true ]; then
+    final_content=$(make_page_async "$final_content")
+fi
+
+if [ "$CLIENT_FLAG" == true ]; then
+    final_content=$(prepend_directive_to_content "$INTRO_DIRECTIVE" "$final_content")
+fi
+
+if [ "$LOADING_FLAG" == true ]; then
+    LOADING_CONTENT=$(determine_content_for_core "$MAIN_NAME" "loading")
+    create_file "$LOADING_CONTENT" "loading" "$DESTINATION_DIR" "$EXTENSION" "false"
+fi
+
+if [ "$ERROR_FLAG" == true ]; then
+    ERROR_CONTENT=$(determine_content_for_core "$MAIN_NAME" "error")
+    create_file "$ERROR_CONTENT" "error" "$DESTINATION_DIR" "$EXTENSION" "false"
+fi
+
+if [ "$NOT_FOUND_FLAG" == true ]; then
+    NOT_FOUND_CONTENT=$(determine_content_for_core "$MAIN_NAME" "not-found")
+    create_file "$NOT_FOUND_CONTENT" "not-found" "$DESTINATION_DIR" "$EXTENSION" "false"
+fi
+
+if [ "$META_FLAG" == true ]; then
+    layout_content=$(create_layout "$MAIN_NAME" "true")
+else
+    layout_content=$(create_layout "$MAIN_NAME" "false")
+fi
+
+create_file "$final_content" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$layout_content" "layout" "$DESTINATION_DIR" "$EXTENSION" "false"
+create_file "$final_test" "main" "$DESTINATION_DIR" "$EXTENSION" "true"
+confirm_entity_created "$MAIN_NAME" "page"

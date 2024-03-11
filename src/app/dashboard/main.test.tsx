@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import DashboardPage from './page'
 
-describe('DashboardPage', () => {
+describe('DashboardPage view', () => {
     it('should render the word Dashboard', () => {
         render(<DashboardPage />)
 

@@ -1,0 +1,5 @@
+describe('{{METHOD_NAME}} handler for {{MAIN_NAME}} route', () => {
+    it('should be a function', () => {
+        expect(typeof {{METHOD_NAME}}).toBe('function')
+    })
+})

@@ -1,0 +1,3 @@
+export const metadata: Metadata = {
+    title: '{{MAIN_NAME}}'
+}

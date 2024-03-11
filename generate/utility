@@ -1,19 +1,23 @@
 #!/bin/bash
 
+source generate/helpers/validators.sh
 source generate/helpers/names.sh
-source generate/helpers/directories.sh
 source generate/helpers/content.sh
 source generate/helpers/files.sh
+source generate/helpers/folders.sh
 source generate/helpers/feedback.sh
 
-FILE_NAME=$1
+FILE_NAME="$1"
 CONTENT_TYPE="utility"
+SRC_DIR="src"
+UTIL_DIR="utilities"
 TEMPLATE_DIR="generate/templates"
-DESTINATION_DIR="src/utilities"
+DIRECTORIES=("$SRC_DIR" "$UTIL_DIR")
+DESTINATION_DIR="$SRC_DIR/$UTIL_DIR"
 EXTENSION="ts"
 
 check_for_name "$FILE_NAME"
-ensure_directories_exist "$DESTINATION_DIR"
+ensure_directories_exist "${DIRECTORIES[@]}"
 
 MAIN_NAME=$(create_camel_case_name "$FILE_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
@@ -21,4 +25,4 @@ TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TY
 
 create_file "$CORE_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "false"
 create_file "$TEST_CONTENT" "$FILE_NAME" "$DESTINATION_DIR" "$EXTENSION" "true"
-validate_entity_created "$MAIN_NAME" "$CONTENT_TYPE"
+confirm_entity_created "$MAIN_NAME" "$CONTENT_TYPE"

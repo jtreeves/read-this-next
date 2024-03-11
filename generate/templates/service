@@ -1,5 +1,6 @@
 export async function {{MAIN_NAME}}(): Promise<any> {
-    const result: any = await {}
-
-    return result
+    try {
+    } catch (error: unknown) {
+        throw new ServiceError({{MAIN_NAME}}.name, error)
+    }
 }

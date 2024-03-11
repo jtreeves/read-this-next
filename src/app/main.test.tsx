@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import HomePage from './page'
 
-describe('HomePage', () => {
+describe('HomePage view', () => {
     it('should render a heading matching name of site', () => {
         render(<HomePage />)
 
