@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export default function BrowseIdPage(): Component {
+export default function BrowseIdPage(): ReactElement {
     return <>BrowseId</>
 }

@@ -1,10 +1,12 @@
 'use client'
 
-import { useEffect } from 'react'
-import { Component } from '@/data/types'
+import { ReactElement, useEffect } from 'react'
 import { ErrorProps } from '@/data/interfaces'
 
-export default function GlobalError({ error, reset }: ErrorProps): Component {
+export default function GlobalError({
+    error,
+    reset
+}: ErrorProps): ReactElement {
     useEffect(() => {
         console.error(error)
     }, [error])

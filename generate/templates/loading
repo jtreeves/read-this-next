@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export default function {{MAIN_NAME}}Loading(): Component {
+export default function {{MAIN_NAME}}Loading(): ReactElement {
     return <>Loading...</>
 }

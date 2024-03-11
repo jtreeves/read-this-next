@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export function Header(): Component {
+export function Header(): ReactElement {
     return <>Header</>
 }

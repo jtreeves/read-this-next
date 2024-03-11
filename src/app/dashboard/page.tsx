@@ -1,5 +1,5 @@
-import { Component } from '@/data/types'
+import { ReactElement } from 'react'
 
-export default function DashboardPage(): Component {
+export default function DashboardPage(): ReactElement {
     return <>Dashboard</>
 }
