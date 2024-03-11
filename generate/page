@@ -24,6 +24,7 @@ process_flags "$@"
 check_for_name "$FOLDER_NAME"
 check_for_path "$CORE_PATH"
 
+MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 UPDATED_DIRECTORIES=($(add_path_to_directories "$CORE_PATH" "$DESTINATION_DIR" "${DIRECTORIES[@]}"))
 DESTINATION_DIR="${UPDATED_DIRECTORIES[0]}"
 DIRECTORIES=("${UPDATED_DIRECTORIES[@]:1}")
@@ -41,7 +42,6 @@ DESTINATION_DIR+="/$FOLDER_NAME"
 
 ensure_directories_exist "${DIRECTORIES[@]}"
 
-MAIN_NAME=$(create_pascal_case_name "$FOLDER_NAME")
 CORE_CONTENT=$(determine_content_for_core "$MAIN_NAME" "$CONTENT_TYPE")
 TEST_CONTENT=$(determine_content_for_test "$FILE_NAME" "$MAIN_NAME" "$CONTENT_TYPE")
 final_content=$(adjust_content_for_page "$CORE_CONTENT")
