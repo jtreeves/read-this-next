@@ -67,8 +67,8 @@ PLAYWRIGHT_TEST_BASE_URL=http://localhost:3000
 This project uses Husky to enforce code quality during the commit process. It will run the following checks on each commit:
 
 -   Message must begin with a capital letter and must not include periods (e.g., `Add search to dashboard`)
--   All TypeScript files will be linted and must not contain any errors
--   All files will have formatting applied to them
+-   All TypeScript files will be linted with ESLint and must not contain any errors
+-   All files will have formatting applied to them by Prettier
 
 ### Opening a Request
 
