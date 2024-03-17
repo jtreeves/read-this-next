@@ -1,6 +1,8 @@
 {
     "name": "read-this-next",
     "version": "0.1.0",
+    "year": "2024",
+    "author": "Jackson Reeves",
     "private": true,
     "scripts": {
         "build": "next build",
