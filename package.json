@@ -1,10 +1,11 @@
 {
     "name": "read-this-next",
     "version": "0.1.0",
+    "author": "Jackson Reeves",
     "private": true,
     "scripts": {
         "build": "next build",
-        "check": "npm run build && npm run test && npm run lint && npm run format && echo '\nAll checks passed!'",
+        "check": "npm run build && npm run test && npm run lint && npm run lint-strict && npm run format && echo '\nAll checks passed!'",
         "clear": "rm -rf .next && rm -rf .swc && rm -rf coverage && rm -rf playwright-report && rm -rf test-results",
         "dev": "next dev",
         "format": "prettier . --write",
