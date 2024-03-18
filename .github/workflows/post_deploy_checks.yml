@@ -33,8 +33,12 @@ jobs:
     needs: e2e-tests
     if: failure()
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Create issue
-        run: |
-          echo "Tests failed; creating issue"
-          cat ISSUE_TEMPLATE/4_test_failure.yml | github-issue create
+        uses: dacbd/create-issue-action@main
+        with:
+          token: ${{ github.token }}
+          title: Failure occurred when running e2e tests
+          body: One or more end-to-end tests failed after the latest deployment.
+          labels: tests
+          assignees: jtreeves
