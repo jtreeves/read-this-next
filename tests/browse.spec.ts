@@ -4,6 +4,6 @@ test.describe('browse', () => {
     test('should have title of browse', async ({ page }) => {
         await page.goto('/browse')
 
-        await expect(page).toHaveTitle(/NOT Browse/)
+        await expect(page).toHaveTitle(/Browse/)
     })
 })
