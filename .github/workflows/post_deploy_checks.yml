@@ -28,3 +28,13 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+  issue-creation:
+    runs-on: ubuntu-latest
+    needs: e2e-tests
+    if: failure()
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create issue
+        run: |
+          echo "Tests failed; creating issue"
+          cat ISSUE_TEMPLATE/4_test_failure.yml | github-issue create

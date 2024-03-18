@@ -1,0 +1,10 @@
+name: Report Test Failure
+description: Create a new ticket to report a test failure
+title: 'Failure occurred when running e2e tests'
+labels: ['tests']
+assignees:
+  - jtreeves
+body:
+  - type: markdown
+    attributes:
+      value: 'One or more end-to-end tests failed after the latest deployment.'
