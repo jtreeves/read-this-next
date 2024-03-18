@@ -6,7 +6,7 @@ assignees:
 body:
   - type: markdown
     attributes:
-      value: 'Please read and follow the instructions before submitting an issue:'
+      value: 'Please read and follow the instructions below before submitting an issue:'
   - type: markdown
     attributes:
       value: |
@@ -26,11 +26,3 @@ body:
       description: What other solutions have you attempted?
     validations:
       required: false
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/jtreeves/read-this-next?tab=coc-ov-file#readme)
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
